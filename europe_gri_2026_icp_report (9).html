@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Europe GRI 2026 — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff;--bg2:#f5f5f3;--bg3:#eeede9;
+  --text:#1a1a18;--text2:#6b6b67;--text3:#9b9b97;
+  --border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);
+  --green:#1D9E75;--gbg:#E1F5EE;--gtxt:#0F6E56;
+  --amber:#EF9F27;--abg:#FAEEDA;--atxt:#854F0B;
+  --red:#E24B4A;--rbg:#FCEBEB;--rtxt:#A32D2D;
+  --blue:#185FA5;--bbg:#E6F1FB;--btxt:#185FA5;
+  --r:8px;--rl:12px;
+}
+body{font-family:'DM Sans',sans-serif;background:#eeedea;color:var(--text);font-size:14px;line-height:1.6;padding:28px 16px 64px}
+.page{max-width:960px;margin:0 auto;background:var(--bg);border-radius:16px;border:.5px solid var(--border2);overflow:hidden}
+.header{padding:28px 36px 20px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px}
+.header h1{font-size:21px;font-weight:600;letter-spacing:-.3px}
+.header p{font-size:12px;color:var(--text3);margin-top:2px}
+.badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;background:var(--bbg);color:var(--btxt)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mval{font-size:26px;font-weight:600;line-height:1;color:var(--text)}
+.mval.g{color:var(--green)}.mval.a{color:var(--amber)}.mval.r{color:var(--red)}
+
+.tabs{display:flex;border-bottom:.5px solid var(--border);background:var(--bg2)}
+.tab{padding:12px 24px;font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
+.tab:hover{color:var(--text2)}
+.tab.active{color:var(--text);border-bottom-color:var(--text)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.filters{display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:12px 36px;background:var(--bg2);border-bottom:.5px solid var(--border)}
+.filters label{font-size:12px;color:var(--text2);font-weight:500}
+select{font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 10px;border:.5px solid var(--border2);border-radius:var(--r);background:var(--bg);color:var(--text);cursor:pointer;outline:none}
+.count{margin-left:auto;font-size:11px;color:var(--text3)}
+.body{padding:20px 28px 32px}
+.sh{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);padding:0 8px 6px;margin-top:24px;margin-bottom:8px;border-bottom:.5px solid var(--border)}
+.sh:first-child{margin-top:0}
+.scard{border:.5px solid var(--border);border-left-width:3px;border-radius:var(--rl);margin-bottom:10px;overflow:hidden}
+.scard.on-track{border-left-color:var(--green)}.scard.at-risk{border-left-color:var(--amber)}
+.scard.behind,.scard.no-data{border-left-color:var(--red)}.scard.no-target{border-left-color:var(--border2)}
+.stop{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:12px 16px 10px;cursor:pointer;user-select:none}
+.stop:hover{background:var(--bg2)}
+.stitle{font-size:13px;font-weight:500;line-height:1.4}
+.spills{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.pill{font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px}
+.pc{background:var(--gbg);color:var(--gtxt)}.pt{background:var(--abg);color:var(--atxt)}.pn{background:var(--bg3);color:var(--text3)}
+.sright{display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:110px}
+.stotal{font-size:20px;font-weight:600}
+.stag{font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px}
+.stag.on-track{background:var(--gbg);color:var(--gtxt)}.stag.at-risk{background:var(--abg);color:var(--atxt)}
+.stag.behind,.stag.no-data{background:var(--rbg);color:var(--rtxt)}.stag.no-target{background:var(--bg3);color:var(--text3)}
+.stgt{font-size:11px;color:var(--text3)}
+.sbar{height:3px;width:100%;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:2px}
+.sbarfill{height:100%;border-radius:2px}
+.chevron{font-size:12px;color:var(--text3);margin-top:2px;transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.icp-section{border-top:.5px solid var(--border);padding:14px 16px 16px;background:var(--bg2);display:none}
+.icp-section.open{display:block}
+.icp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.icp-col h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:8px}
+.pr{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px}
+.pdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.pdot.matched{background:var(--green)}.pdot.missing{background:var(--red)}.pdot.partial{background:var(--amber)}
+.pinfo{flex:1}
+.ptitle{font-size:12px;font-weight:500;color:var(--text);line-height:1.3}
+.pdetail{font-size:11px;color:var(--text2);margin-top:1px;line-height:1.4}
+.pperson{font-size:11px;color:var(--gtxt);background:var(--gbg);padding:1px 7px;border-radius:999px;margin-top:3px;display:inline-block}
+.icp-legend{display:flex;gap:12px;margin-bottom:12px}
+.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
+.ldot{width:8px;height:8px;border-radius:50%}
+.icpnote{font-size:11px;color:var(--text2);margin-top:10px;padding-top:10px;border-top:.5px solid var(--border);font-style:italic}
+.chart-wrap{padding:28px 36px 36px}
+.chart-wrap h2{font-size:15px;font-weight:600;margin-bottom:3px}
+.chart-wrap p{font-size:12px;color:var(--text3);margin-bottom:16px}
+.cleg{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.cli{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)}
+.clsq{width:10px;height:10px;border-radius:2px}
+.comp-wrap{padding:28px 36px 36px}
+.comp-wrap h2{font-size:15px;font-weight:600;margin-bottom:3px}
+.comp-wrap p{font-size:12px;color:var(--text3);margin-bottom:20px}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.comp-col h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding-bottom:8px;border-bottom:.5px solid var(--border);margin-bottom:10px}
+.comp-col h3.in{color:var(--green)}.comp-col h3.out{color:var(--rtxt)}
+.crow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:.5px solid var(--border);font-size:12px}
+.crow:last-child{border-bottom:none}
+.cdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.cdot.in{background:var(--green)}.cdot.out{background:var(--red)}
+.cname{flex:1;color:var(--text)}
+.cperson{font-size:10px;color:var(--gtxt);background:var(--gbg);padding:1px 6px;border-radius:999px}
+.cmember{font-size:10px;padding:1px 6px;border-radius:999px}
+.cmember.yes{color:var(--btxt);background:var(--bbg)}.cmember.no{color:var(--rtxt);background:var(--rbg)}
+.footer{padding:14px 36px;border-top:.5px solid var(--border);background:var(--bg2);font-size:11px;color:var(--text3);display:flex;justify-content:space-between}
+
+.wl-section{border-top:.5px solid var(--border);padding:12px 16px 14px;background:#fafaf8}
+.wl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.wl-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3)}
+.wl-total{font-size:13px;font-weight:600;color:var(--text);background:var(--bg3);padding:1px 10px;border-radius:999px}
+.wl-total.ok{background:var(--gbg);color:var(--gtxt)}
+.wl-total.warn{background:var(--abg);color:var(--atxt)}
+.wl-total.low{background:var(--rbg);color:var(--rtxt)}
+.wl-owners{display:flex;flex-wrap:wrap;gap:6px}
+.wl-owner{display:flex;align-items:center;gap:5px;font-size:11px;background:var(--bg);border:.5px solid var(--border);border-radius:999px;padding:2px 8px}
+.wl-owner-name{color:var(--text2)}
+.wl-owner-count{font-weight:600;color:var(--text);background:var(--bg3);border-radius:999px;padding:0 5px;font-size:10px;min-width:16px;text-align:center}
+.wl-none{font-size:11px;color:var(--text3);font-style:italic}
+
+.perf-wrap{padding:28px 36px 36px}
+.perf-row{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.perf-block h2{font-size:15px;font-weight:600;margin-bottom:3px}
+.perf-block p{font-size:12px;color:var(--text3);margin-bottom:16px}
+
+.staff-row:last-child{border-bottom:none}
+
+
+
+
+
+
+
+
+
+
+.wl-owner{cursor:pointer;position:relative;transition:background .15s}
+.wl-owner:hover{background:var(--bg2);border-color:var(--border2)}
+.wl-owner.active{background:var(--gbg);border-color:var(--green)}
+.wl-dropdown{display:none;position:absolute;top:calc(100% + 6px);left:0;z-index:100;background:var(--bg);border:.5px solid var(--border2);border-radius:var(--rl);padding:8px 0;min-width:240px;max-width:320px;box-shadow:0 4px 16px rgba(0,0,0,.10)}
+.wl-dropdown.open{display:block}
+.wl-dropdown-item{padding:6px 14px;font-size:12px;line-height:1.4;border-bottom:.5px solid var(--border);color:var(--text)}
+.wl-dropdown-item:last-child{border-bottom:none}
+.wl-dropdown-name{font-weight:500;color:var(--text)}
+
+
+.sr-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:.5px solid var(--border)}
+.sr-row:last-child{border-bottom:none}
+.sr-rank{font-size:11px;font-weight:700;color:var(--text3);width:18px;text-align:center;flex-shrink:0}
+.sr-main{flex:1;min-width:0}
+.sr-name-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+.sr-name{font-size:13px;font-weight:500;color:var(--text);flex-shrink:0}
+.sr-badges{display:flex;gap:4px;flex-wrap:wrap}
+.sr-badge{font-size:10px;font-weight:600;padding:1px 7px;border-radius:999px}
+.sr-conf{background:var(--gbg);color:var(--gtxt)}
+.sr-tent{background:var(--abg);color:var(--atxt)}
+.sr-wl{background:#E6F1FB;color:#185FA5}
+.sr-dec{background:var(--rbg);color:var(--rtxt)}
+.sr-bar-track{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;display:flex}
+.sr-bar-conf{height:100%;background:#1D9E75;border-radius:3px 0 0 3px;transition:width .3s}
+.sr-bar-tent{height:100%;background:#EF9F27}
+
+.cd-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 36px;background:#FFF8ED;border-bottom:.5px solid #F5C26B;flex-wrap:wrap}
+.cd-left{display:flex;flex-direction:column;gap:3px}
+.cd-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#92651A}
+.cd-row{display:flex;align-items:baseline;gap:7px}
+.cd-days-val{font-size:24px;font-weight:700;color:#B45309;line-height:1}
+.cd-days-label{font-size:13px;font-weight:500;color:#7A4F00}
+.cd-sep{font-size:13px;color:#B87830;opacity:.5}
+.cd-date{font-size:13px;color:#92651A}
+.cd-progress{flex:1;min-width:200px;max-width:340px}
+.cd-track-labels{display:flex;justify-content:space-between;font-size:10px;color:#92651A;margin-bottom:4px;opacity:.75}
+.cd-track{height:5px;background:rgba(245,194,107,.3);border-radius:3px;overflow:hidden}
+.cd-fill{height:100%;background:#F59E0B;border-radius:3px;transition:width .5s}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>🇪🇺 Europe GRI 2026 — Summer Edition</h1>
+  </div>
+  <span class="badge">9–10 Sept, Paris</span>
+</div>
+
+<div class="cd-banner">
+  <div class="cd-left">
+    <span class="cd-label">⏳ Tentative Program Deadline</span>
+    <div class="cd-row">
+      <span class="cd-days-val" id="cd-days">—</span>
+      <span class="cd-days-label">days remaining</span>
+      <span class="cd-sep">·</span>
+      <span class="cd-date">July 3, 2026</span>
+    </div>
+  </div>
+  <div class="cd-progress">
+    <div class="cd-track-labels"><span>Jan 30</span><span>Jul 3</span></div>
+    <div class="cd-track"><div class="cd-fill" id="cd-fill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('icp',this)">ICP Analysis</div>
+  <div class="tab" onclick="switchTab('chart',this)">Program Confirmation</div>
+  <div class="tab" onclick="switchTab('companies',this)">Key Accounts</div>
+  <div class="tab" onclick="switchTab('perf',this)">Performance</div>
+</div>
+
+<div class="tab-content active" id="tab-icp">
+  <div class="filters">
+    <div style="display:flex;align-items:center;gap:6px">
+      <label>Stream</label>
+      <select id="f-stream" onchange="render()"><option value="">All</option></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <label>Producer</label>
+      <select id="f-producer" onchange="render()"><option value="">All</option></select>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <label>ICP Status</label>
+      <select id="f-icp" onchange="render()">
+        <option value="">All</option>
+        <option value="gap">Has ICP gaps</option>
+        <option value="ok">ICP well covered</option>
+        <option value="empty">No co-chairs</option>
+      </select>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <label>Target Status</label>
+      <select id="f-status" onchange="render()">
+        <option value="">All</option>
+        <option value="on-track">Target met</option>
+        <option value="at-risk">Partial</option>
+        <option value="behind">Below target</option>
+        <option value="no-data">No co-chairs</option>
+      </select>
+    </div>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="body" id="body"></div>
+</div>
+
+<div class="tab-content" id="tab-chart">
+  <div class="chart-wrap">
+    <h2>Program Confirmation — Sessions vs. Target</h2>
+    
+    <div class="cleg">
+      <div class="cli"><div class="clsq" style="background:#1D9E75"></div>Confirmed</div>
+      <div class="cli"><div class="clsq" style="background:#EF9F27"></div>Tentative</div>
+      <div class="cli" style="align-items:center">
+        <div style="width:18px;height:2px;background:#E24B4A;margin:0 2px"></div>Meta
+      </div>
+    </div>
+    <div style="position:relative;width:100%;height:1560px">
+      <canvas id="pgChart" role="img" aria-label="Gráfico de barras horizontais mostrando co-chairs confirmados e tentative por sessão versus a meta.">Co-chairs por sessão Europe GRI 2026.</canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-companies">
+  <div class="comp-wrap">
+    <h2>Key Accounts — Europe GRI 2026</h2>
+    
+    <div class="comp-grid" id="comp-grid"></div>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-perf">
+  <div class="perf-wrap">
+    <div class="perf-row">
+      <div class="perf-block">
+        <h2>Co-chairs by Country</h2>
+        
+        <div style="position:relative;width:100%;height:380px">
+          <canvas id="countryChart" role="img" aria-label="Bar chart showing co-chairs by country">Co-chairs by country.</canvas>
+        </div>
+      </div>
+      <div class="perf-block">
+        <h2>Staff Contribution Ranking</h2>
+        
+        <div id="staff-ranking"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>GRI Institute · Europe GRI 2026 Summer Edition</span>
+  <span id="footer-date"></span>
+</div>
+</div>
+<script>
+const SESSIONS = [
+  {
+    stream: "Openings",
+    title: "Opening Day 1 — LP Mandate 2027",
+    producer: "Beatriz / Ludwig",
+    confirmed: 2, tentative: 0, target: 4,
+    icp: [
+      "CIO / Head of Real Estate",
+      "Head of Pan-European Funds",
+      "LP / Institutional Allocator",
+      "Global Head of Real Estate Investments"
+    ],
+    allocated: [
+      { name: "George Fraser-Harding", company: "Aviva Investors", jobTitle: "Head of Pan-European Funds RE", matchedIcp: "Head of Pan-European Funds", fit: "match", status: "Confirmed" },
+      { name: "Puneet Kataria", company: "Gulf Islamic Investments", jobTitle: "Global Head – Real Estate Investments", matchedIcp: "Global Head of Real Estate Investments", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Bom alinhamento: 2 perfis LP/alocador cobertos. Faltam CIO de grande fundo pan-europeu e um perfil de Head of Real Estate de fundo de pensão/soberano."
+  },
+  {
+    stream: "Openings",
+    title: "Opening Day 2 — Investment",
+    producer: "Beatriz / Ludwig",
+    confirmed: 0, tentative: 0, target: 4,
+    icp: ["CIO", "Head of Europe", "Head of Acquisitions", "CEO"],
+    allocated: [],
+    notes: "Nenhum co-chair alocado. Sessão opening precisa de perfis senior de investimento pan-europeu com urgência."
+  },
+  {
+    stream: "Openings",
+    title: "Closing (AI/Trends)",
+    producer: "Beatriz / Ludwig",
+    confirmed: 0, tentative: 0, target: 1,
+    icp: ["CIO", "Head of Research", "CEO", "Head of Strategy"],
+    allocated: [],
+    notes: "Sessão de encerramento; pode ser preenchida com sponsor ou speaker convidado."
+  },
+  {
+    stream: "Investment",
+    title: "Value-Add — What Actually Trades in 2026?",
+    producer: "Ludwig Menke",
+    confirmed: 2, tentative: 0, target: 6,
+    icp: ["CIO", "Head of Acquisitions", "Head of Value-add/Opportunistic RE", "Partner", "CEO"],
+    allocated: [
+      { name: "David King", company: "Harbert Management Corporation", jobTitle: "Senior Managing Director", matchedIcp: "Senior Managing Director / equivalent Head of RE", fit: "partial", status: "Confirmed" },
+      { name: "Fabrizio Grena", company: "Emerald Pine Capital", jobTitle: "Founding Partner and CEO", matchedIcp: "CEO / Partner", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Fabrizio Grena (CEO, Emerald Pine) cobre o perfil CEO/Partner. David King (Senior MD, Harbert) cobre parcialmente — é uma plataforma de value-add mas o título é MD, não CIO/Head. Faltam: CIO de grande fundo, Head of Acquisitions pan-europeu, Head of Value-add de instituição top-tier."
+  },
+  {
+    stream: "Investment",
+    title: "Club Deals, JVs & Co-Invests",
+    producer: "Ludwig Menke",
+    confirmed: 1, tentative: 0, target: 6,
+    icp: ["CIO", "Head of Acquisitions", "Head of Europe", "Head of Real Estate", "Partner", "CEO"],
+    allocated: [
+      { name: "Dorota Latkowska-Diniejko", company: "REINO Partners", jobTitle: "Co-Founder of REINO Group, CIO", matchedIcp: "CIO / Co-Founder", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Excelente perfil: CIO e fundadora de plataforma de investimento CEE com €3bn+ em transações. Cobre o perfil CIO/Partner. Faltam: Head of Acquisitions pan-europeu, CEO de plataforma sponsor, perfil LP co-invest."
+  },
+  {
+    stream: "Investment",
+    title: "Buyers x Sellers Reality Check",
+    producer: "Ludwig Menke",
+    confirmed: 1, tentative: 0, target: 6,
+    icp: ["CIO", "Head of Acquisitions", "Head of Divestment", "Partner", "Head of Investments", "Head of Real Estate"],
+    allocated: [
+      { name: "Adrian Karczewicz", company: "Skanska", jobTitle: "Cross Border Transaction Lead, Head of Divestments CEE", matchedIcp: "Head of Divestment", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Adrian Karczewicz é o perfil ideal de Head of Divestment — €3.7bn+ em vendas no CEE. Cobre o lado vendedor com autoridade. Faltam: comprador (CIO/Head of Acquisitions), profil de fundo pan-europeu e lender envolvido em execução de deals."
+  },
+  {
+    stream: "Investment",
+    title: "Portfolio Trades vs. Single Assets",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 1, target: 6,
+    icp: ["CIO", "Head of Transactions", "Partner", "CEO", "Head of Portfolio Strategy", "Head of Real Estate"],
+    allocated: [
+      { name: "Paul Nearchou", company: "DFI LLP", jobTitle: "Partner", matchedIcp: "Partner", fit: "match", status: "Tentative" }
+    ],
+    notes: "Paul Nearchou (Partner, DFI LLP — advisory/investment) cobre o perfil Partner mas ainda em Tentative. Faltam: CIO de grande plataforma, Head of Portfolio Strategy de fundo institucional, perfil de REIT ou plataforma de escala."
+  },
+  {
+    stream: "Investment",
+    title: "Core — Where Are Real Deals Clearing?",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 5,
+    icp: ["CIO", "Head of Acquisitions", "Head of Europe", "Head of Core RE", "Partner", "CEO"],
+    allocated: [],
+    notes: "Sessão prioritária sem nenhum co-chair. Core é o segmento mais disputado — precisa de nomes institucionais top-tier com urgência."
+  },
+  {
+    stream: "Investment",
+    title: "Exit Optionality",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 5,
+    icp: ["CIO", "Head of Portfolio Management", "Head of Investments", "Head of Divestment", "Partner", "CEO", "Head of Disposals"],
+    allocated: [],
+    notes: "Nenhum co-chair. Precisa de perfis com experiência recente em exits/disposals e portfolio management."
+  },
+  {
+    stream: "Investment",
+    title: "Secondaries Market",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 5,
+    icp: ["Partner", "CIO", "Head of Secondaries", "Head of Fund Management", "Head of Real Estate"],
+    allocated: [],
+    notes: "Nenhum co-chair. Nicho específico — priorizar plataformas de secondaries como Ares, Apollo, Landmark Partners."
+  },
+  {
+    stream: "Investment",
+    title: "Dry Powder — Ready to Deploy?",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["CEO", "CIO", "Partner", "Head of Acquisitions", "Head of Real Estate"],
+    allocated: [],
+    notes: "Nenhum co-chair. Sessão ampla — boa para perfis de grandes gestores com dry powder declarado."
+  },
+  {
+    stream: "Financing",
+    title: "Private Credit x Banks Collaboration",
+    producer: "Ludwig Menke",
+    confirmed: 1, tentative: 0, target: 6,
+    icp: ["Partner", "Co-Head of Real Estate Lending", "Head of Real Estate Lending EMEA", "Head of Debt Capital Markets", "Head of Origination"],
+    allocated: [
+      { name: "William Twemlow", company: "Ares Management", jobTitle: "MD, Co-Head European Real Estate Debt", matchedIcp: "Co-Head of Real Estate Lending EMEA", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Will Twemlow é um match excelente: Co-Head do maior private credit RE da Europa (Ares, $9B+ AUM). Cobre o lado private credit com autoridade. Faltam: representante de banco sênior (BNPP, Goldman, ING), e mais um perfil de debt advisor ou private credit."
+  },
+  {
+    stream: "Financing",
+    title: "Mid-market Financing Deals",
+    producer: "Ludwig Menke",
+    confirmed: 1, tentative: 0, target: 5,
+    icp: ["Local Partner", "Head of RE Lending / Financing (local)", "C-level mid-market platform"],
+    allocated: [
+      { name: "António Pereira Dias", company: "Havenstone Capital", jobTitle: "Partner", matchedIcp: "Local Partner / mid-market", fit: "match", status: "Confirmed" }
+    ],
+    notes: "António Pereira Dias cobre o perfil de Partner em plataforma mid-market (Portugal/Iberia). Alinhado com o ICP local. Faltam: mais 2–3 perfis de regional bank lenders ou plataformas mid-market de outros países (DE, FR, IT)."
+  },
+  {
+    stream: "Financing",
+    title: "Capital Stack Engineering",
+    producer: "Ludwig Menke",
+    confirmed: 1, tentative: 0, target: 6,
+    icp: ["CIO", "Partner", "Head of Real Estate Lending", "Head of Debt Capital Markets", "Head of Origination"],
+    allocated: [
+      { name: "Alexi Antolovich", company: "Macquarie Capital", jobTitle: "Global Co-Head Real Estate", matchedIcp: "CIO / Global Co-Head RE (Principal Finance)", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Alexi Antolovich é forte match: lida com toda a capital stack (senior, mezz, equity) em transações pan-europeias e globais. Faltam: Head of Debt Capital Markets de banco (ex: Natixis, SocGen), Head of Origination de debt fund, e perfil de preferred equity/mezz especialista."
+  },
+  {
+    stream: "Financing",
+    title: "European Debt Map — Who's Lending",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["CIO", "Partner", "Head of RE Lending Europe/EMEA", "Head of Debt Capital Markets", "Head of Origination"],
+    allocated: [],
+    notes: "Sessão flagship de debt — zero alocado. Precisa de mix banco + private credit. Ares (Twemlow) já está em outra sessão de financing."
+  },
+  {
+    stream: "Financing",
+    title: "Refinancing the Wall",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["CIO", "Head of Lending Europe", "Partner", "Head of Restructuring Europe", "CEO plataforma", "CFO", "Head of Asset Management"],
+    allocated: [],
+    notes: "Nenhum co-chair. Sessão de alto impacto — precisa de perfis com exposição real ao refinancing wall (borrowers + lenders)."
+  },
+  {
+    stream: "Commercial",
+    title: "Office 2.0 — Which Markets Underwrite",
+    producer: "Julien Geier",
+    confirmed: 1, tentative: 0, target: 6,
+    icp: ["Head of Offices", "Head of Investments", "Managing Director CRE Investment", "Head of Asset Management"],
+    allocated: [
+      { name: "Magda Pokorná", company: "Crestyl", jobTitle: "Chief Corporate Officer", matchedIcp: "C-suite / developer platform", fit: "partial", status: "Confirmed" }
+    ],
+    notes: "Magda Pokorná (CCO, Crestyl — grande developer CEE) é perfil C-suite mas mais focado em desenvolvimento que investimento institucional. Cobre parcialmente o ICP. Faltam: Head of Offices de investidor institucional, Head of Investments pan-europeu com convicção em office."
+  },
+  {
+    stream: "Commercial",
+    title: "Retail Polarisation — Prime vs. Secondary",
+    producer: "Julien Geier",
+    confirmed: 2, tentative: 0, target: 6,
+    icp: ["Head of Shopping & Retail", "Head of Investments", "Managing Director CRE Investment", "Head of Asset Management"],
+    allocated: [
+      { name: "Niccolò Suardi", company: "Colliers International Italy", jobTitle: "Co-Head EMEA Retail & Head Agency/Capital Markets Italy", matchedIcp: "Head of Retail / Capital Markets", fit: "match", status: "Confirmed" },
+      { name: "Simon Johnson", company: "Crestyl", jobTitle: "Group CEO", matchedIcp: "CEO / RE platform", fit: "partial", status: "Confirmed" }
+    ],
+    notes: "Niccolò Suardi (Colliers EMEA Retail) é match forte para perspectiva de advisory/capital markets. Simon Johnson (CEO, Crestyl) cobre perfil CEO de developer mas não é especialista em retail. Faltam: investidor institucional em retail (dono de portfólio), Head of Asset Management especializado."
+  },
+  {
+    stream: "Commercial",
+    title: "Logistics Pan-European Strategies",
+    producer: "Julien Geier",
+    confirmed: 1, tentative: 0, target: 6,
+    icp: ["Head of LI&L", "Head of Logistics", "Head of Investments", "Managing Director CRE Investment", "Head of Asset Management"],
+    allocated: [
+      { name: "Christopher Mertlitz", company: "W.P. Carey", jobTitle: "MD, Head of European Investments", matchedIcp: "Head of European Investments / MD", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Christopher Mertlitz (Head of European Investments, W.P. Carey — grande net-lease com logística) é match sólido. Faltam: Head of Logistics puro (ex: Prologis, GLP), operador especializado, perfil de last-mile/urban logistics."
+  },
+  {
+    stream: "Commercial",
+    title: "Logistics Local Markets Deals",
+    producer: "Julien Geier",
+    confirmed: 1, tentative: 0, target: 6,
+    icp: ["Head of LI&L Local", "Local Head of Logistics", "MD CRE Local", "Head of Asset Management Local"],
+    allocated: [
+      { name: "Hubert Michalak", company: "Hillwood Polska", jobTitle: "Managing Director", matchedIcp: "Managing Director / local developer", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Hubert Michalak (MD, Hillwood Polska — developer logístico CEE) cobre bem o perfil de local logistics developer/manager. Faltam: mais 2–3 perfis locais de outros mercados (DE, FR, IT, ES), e perfil de investidor/comprador local."
+  },
+  {
+    stream: "Commercial",
+    title: "Conversion & Repositioning",
+    producer: "Julien Geier",
+    confirmed: 0, tentative: 0, target: 5,
+    icp: ["CEO", "Head of Development", "Partner", "Managing Director", "Head of Repositioning", "Head of Asset Management"],
+    allocated: [],
+    notes: "Nenhum co-chair. Oportunidade para developers com track record em conversão (office-to-resi, retail-to-mixed)."
+  },
+  {
+    stream: "Commercial",
+    title: "Data Centers — Underwritten or Overcrowded?",
+    producer: "Julien Geier",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["Partner", "CIO", "Head of Digital Infrastructure", "Head of Investments", "Head of Data Centers"],
+    allocated: [],
+    notes: "Sessão Guest/Sponsor — zero alocado. Priorizar plataformas de data center (Equinix, Digital Realty, Vantage) ou infra funds com exposição digital."
+  },
+  {
+    stream: "Living",
+    title: "Flex & Co-Living / Serviced Apartments",
+    producer: "Kaynã de Oliveira",
+    confirmed: 1, tentative: 1, target: 6,
+    icp: ["CEO", "CIO", "Managing Director Living Strategies", "Partner", "Head of Co-living", "Head of Flex Living"],
+    allocated: [
+      { name: "Dimitri Chandogin", company: "Numa Group", jobTitle: "Co-founder / President", matchedIcp: "Co-founder / CEO — operator platform", fit: "match", status: "Confirmed" },
+      { name: "Josef Maximilian Vollmayr", company: "Limehome GmbH", jobTitle: "Co-Founder and Managing Director", matchedIcp: "Co-Founder / MD — operator platform", fit: "match", status: "Tentative" }
+    ],
+    notes: "Excelente cobertura do lado operator: Numa Group (líder europeu serviced apartments) e Limehome (apartamentos flex Alemanha/Europa). Ambos são co-fundadores de plataformas operacionais relevantes. Faltam: investidor institucional por trás dessas plataformas, ou perfil de fundo com estratégia de flex/co-living."
+  },
+  {
+    stream: "Living",
+    title: "Build-to-Rent — Can the Model Deliver?",
+    producer: "Ludwig Menke",
+    confirmed: 1, tentative: 0, target: 6,
+    icp: ["CIO", "CEO", "Head of BTR Europe", "Partner", "Head of BTR Investments"],
+    allocated: [
+      { name: "Peter Noack", company: "ZEITGEIST Asset Management", jobTitle: "Co-Founder and Managing Partner", matchedIcp: "Co-Founder / Managing Partner — BTR/PRS developer", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Peter Noack (ZEITGEIST) cobre bem o perfil de developer/asset manager BTR/PRS na Europa Central (DE, PL, CZ) com €800M+ em gestão. Faltam: CIO de grande fundo BTR institucional (Greystar, Aviva, M&G), perfil de UK BTR, e Head of BTR de plataforma pan-europeia."
+  },
+  {
+    stream: "Living",
+    title: "Living as Defensive Play",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["CIO", "CEO", "Head of Living Europe", "Partner", "Head of Residential Investments"],
+    allocated: [],
+    notes: "Nenhum co-chair. Sessão de abertura do stream Living — precisa de perfis institution top-tier com plataforma living pan-europeia."
+  },
+  {
+    stream: "Living",
+    title: "PBSA — Still Wins, But Where?",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["CEO", "CIO", "MD Living Strategies", "Partner", "Head of PBSA", "Head of Living"],
+    allocated: [],
+    notes: "Nenhum co-chair. PBSA é subsegmento mais maduro — priorizar operators (Unite, GSA, Greystar student) e investors institucionais."
+  },
+  {
+    stream: "Living",
+    title: "Senior Living — The Next Core?",
+    producer: "Julien Geier",
+    confirmed: 0, tentative: 0, target: 5,
+    icp: ["CEO", "CIO", "MD Living Strategies", "Partner", "Head of Senior Living"],
+    allocated: [],
+    notes: "Nenhum co-chair. Mercado ainda em crescimento — priorizar operadores especializados e fundos com tese de longevidade/senior."
+  },
+  {
+    stream: "Living",
+    title: "Affordability & Residential Regulation",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 4,
+    icp: ["CEO", "CIO", "Country Head", "Head of Residential", "Head of Public Affairs", "General Counsel"],
+    allocated: [],
+    notes: "Sessão Guest — perfis não-convencionais incluindo reguladores e especialistas em política habitacional. Zero alocado."
+  },
+  {
+    stream: "Hospitality",
+    title: "Branded Residences — Real Value?",
+    producer: "Kaynã de Oliveira",
+    confirmed: 2, tentative: 0, target: 4,
+    icp: ["CEO", "Head of Development", "Head of Branded Residences", "Partner"],
+    allocated: [
+      { name: "Diane Daudin Clavaud", company: "NOBU Hotels", jobTitle: "Global Director of Business Development", matchedIcp: "Head of Business Development / Global Expansion — branded residences", fit: "match", status: "Confirmed" },
+      { name: "Ricardo Pucci", company: "Galli Investimentos", jobTitle: "CEO", matchedIcp: "CEO / investor", fit: "partial", status: "Confirmed" }
+    ],
+    notes: "Diane Daudin Clavaud (NOBU) é match forte: lida com branded residences globalmente, negociou deals com owners/HNW. Ricardo Pucci (CEO, Galli Investimentos — Brasil) é perfil CEO/investor mas de mercado fora da Europa, o que pode ser positivo (perspectiva de comprador internacional) mas não é o ICP primário da sessão pan-europeia."
+  },
+  {
+    stream: "Hospitality",
+    title: "Hospitality's Comeback — Structural Shift?",
+    producer: "—",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["CIO", "CEO", "Head of Hospitality Europe/EMEA", "Partner", "Head of Hospitality Investments"],
+    allocated: [],
+    notes: "Nenhum co-chair. Sessão principal do stream — precisa de investidores institucionais com plataforma hospitalidade europeia."
+  },
+  {
+    stream: "Hospitality",
+    title: "Hospitality Risk-Adjusted Returns",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["Head of Hospitality", "Head of Value-add", "Partner", "Head of Investments"],
+    allocated: [],
+    notes: "Nenhum co-chair. Foco em value-add hospitality — priorizar funds com portfolio de reposicionamento hoteleiro."
+  },
+  {
+    stream: "Hospitality",
+    title: "Lease / Management / Franchise Models",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["CEO", "COO", "Head of Hospitality", "Head of Asset Management", "Partner"],
+    allocated: [],
+    notes: "Nenhum co-chair. Ideal para hotel operators (IHG, Marriott, Accor) e plataformas flex (Limehome, Sonder) — explorar conexão com operadores já na Flex session."
+  },
+  {
+    stream: "Hospitality",
+    title: "Platform Plays vs. Single-Asset Deals",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 6,
+    icp: ["CEO", "CIO", "Partner", "Head of Hospitality Investments", "Head of RE Europe"],
+    allocated: [],
+    notes: "Nenhum co-chair. Perfil de PE/fund com tese de plataforma hoteleira europeia."
+  },
+  {
+    stream: "France",
+    title: "Discussion 1 — Investissement et Risque France",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 3,
+    icp: ["CIO France", "Head of Investments France", "CEO plateforme française"],
+    allocated: [],
+    notes: "Stream francófono sem co-chairs. Priorizar nomes do mercado imobiliário francês — AXA IM, Amundi RE, BNP Paribas REIM, Ivanhoé Cambridge France."
+  },
+  {
+    stream: "France",
+    title: "Discussion 2 — Financement France",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 5,
+    icp: ["Head of Financement France", "CIO Debt", "Partner / lender France"],
+    allocated: [],
+    notes: "Nenhum co-chair. Priorizar: La Banque Postale, Natixis, Amundi Crédit, Idia Capital Investissement."
+  },
+  {
+    stream: "France",
+    title: "Discussion 3 — Immobilier Tertiaire",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 5,
+    icp: ["Head of Bureaux / Retail / Logistique France", "Head of Investments France", "MD CRE France"],
+    allocated: [],
+    notes: "Nenhum co-chair. Foco no mercado de escritórios e logística francês."
+  },
+  {
+    stream: "France",
+    title: "Discussion 4 — Living France",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 5,
+    icp: ["Head of Résidentiel France", "CEO BTR / PBSA France", "CIO Living France"],
+    allocated: [],
+    notes: "Nenhum co-chair. Mercado residencial francês em foco."
+  },
+  {
+    stream: "Countries",
+    title: "CEE — Niche Plays or Next Core Markets?",
+    producer: "Julien Geier",
+    confirmed: 0, tentative: 1, target: 3,
+    icp: ["Country Head / CEE", "CIO CEE", "Head of Investments CEE", "Head of Asset Management CEE"],
+    allocated: [
+      { name: "Ewa Parys", company: "AEW Europe", jobTitle: "Head of Asset Management CEE and Nordics", matchedIcp: "Head of Asset Management CEE", fit: "match", status: "Tentative" }
+    ],
+    notes: "Ewa Parys (AEW Europe) é match forte: Head of Asset Management CEE & Nordics em uma das maiores gestoras europeias. Ainda Tentative. Com confirmação, cobre bem o ICP. Faltam: 1–2 perfis de capital alocador com convicção em CEE (investor side)."
+  },
+  {
+    stream: "Countries",
+    title: "Nordics — Where Is Money Moving First?",
+    producer: "Ludwig Menke",
+    confirmed: 2, tentative: 0, target: null,
+    icp: ["CIO / CEO Nordics", "Head of Real Estate Nordics", "Founding Partner local platform"],
+    allocated: [
+      { name: "Fabio Barbaro", company: "ÆRA Capital", jobTitle: "Founding Partner & Co-CEO", matchedIcp: "Founding Partner / CEO — local platform", fit: "match", status: "Confirmed" },
+      { name: "Pradeep Pattem", company: "Park Street Nordicom", jobTitle: "CEO", matchedIcp: "CEO — Nordic RE platform", fit: "match", status: "Confirmed" }
+    ],
+    notes: "Excelente cobertura para sessão sem meta definida ainda. Dois CEOs/fundadores de plataformas locais nórdicas (Noruega + Dinamarca). Forte para dar perspectiva local e operacional. Seria bom adicionar um investidor institucional pan-europeu com tese Nordics para equilibrar."
+  },
+  {
+    stream: "Countries",
+    title: "UK — Liquidity Leader or Structural Outlier?",
+    producer: "Ludwig Menke",
+    confirmed: 0, tentative: 0, target: 3,
+    icp: ["Country Head UK", "Head of UK RE", "CIO UK", "MD UK platform"],
+    allocated: [],
+    notes: "Nenhum co-chair para o maior mercado de liquidez europeu. Urgente."
+  },
+  {
+    stream: "Countries",
+    title: "Germany — Reset, Repricing & Re-Entry",
+    producer: "Julien Geier",
+    confirmed: 0, tentative: 0, target: 3,
+    icp: ["Country Head Germany", "Head of Germany RE", "CIO Germany", "MD Alemanha"],
+    allocated: [],
+    notes: "Nenhum co-chair para o mercado mais em foco do momento europeu. Alta prioridade."
+  },
+  {
+    stream: "Countries",
+    title: "Spain — Yield, Growth & Demand",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 3,
+    icp: ["Country Head Spain", "Head of Spain RE", "CIO Spain"],
+    allocated: [],
+    notes: "Nenhum co-chair. Mercado em forte momentum — priorizar players locais com escala."
+  },
+  {
+    stream: "Countries",
+    title: "Italy — Can Capital Scale Up?",
+    producer: "Giovanna Paganini",
+    confirmed: 0, tentative: 0, target: 3,
+    icp: ["Country Head Italy", "Head of Italy RE", "CEO plataforma italiana"],
+    allocated: [],
+    notes: "Nenhum co-chair. Mercado com baixa institucionalização — perfis C-level locais são estratégicos."
+  },
+  {
+    stream: "Countries",
+    title: "Portugal — Still a Capital Magnet?",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 3,
+    icp: ["Country Head Portugal", "Head of Portugal RE", "CEO plataforma local"],
+    allocated: [],
+    notes: "Nenhum co-chair. Mercado pequeno mas com liquidez crescente — perfis locais top de mercado."
+  },
+  {
+    stream: "Countries",
+    title: "GCC — Global Capital Magnet?",
+    producer: "Beatriz Zarattini",
+    confirmed: 0, tentative: 0, target: 3,
+    icp: ["Head of GCC / ME investments", "CIO GCC", "Country Head ME"],
+    allocated: [],
+    notes: "Nenhum co-chair. Puneet Kataria (Gulf Islamic) está alocado no Opening LPs — poderia ser duplicado aqui."
+  },
+  {
+    stream: "Future Trends",
+    title: "CapEx, ESG & Obsolescence",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 4,
+    icp: ["CEO", "Head of ESG", "Head of Strategy", "Partner", "Head of Investments", "CSO / Green Transition"],
+    allocated: [],
+    notes: "Sessão Sponsor-driven — zero co-chairs. Perfis de sustainability/ESG leadership em plataformas grandes."
+  },
+  {
+    stream: "Future Trends",
+    title: "Data & Underwriting",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 4,
+    icp: ["CEO", "Chief Data Officer", "Head of Research", "Head of Strategy", "Partner"],
+    allocated: [],
+    notes: "Sessão Sponsor-driven. Perfis de data/analytics em RE — priorizar plataformas proptech ou funds com data advantage."
+  },
+  {
+    stream: "Future Trends",
+    title: "Demographics & Long-Term Demand",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 4,
+    icp: ["CIO", "Head of Research", "Head of Strategy", "CEO", "Professor / Economist"],
+    allocated: [],
+    notes: "Sessão Sponsor-driven. Abertura para speakers acadêmicos/think tanks (OCDE, UN, World Bank) além dos RE usuais."
+  },
+  {
+    stream: "Future Trends",
+    title: "Venture Capital, Proptech & Innovation",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 4,
+    icp: ["Partner VC", "Founder proptech", "CEO", "Chief Innovation Officer", "Head of Ventures"],
+    allocated: [],
+    notes: "Sessão Sponsor-driven. Perfis de VC/proptech — diferentes do RE institucional tradicional."
+  },
+  {
+    stream: "Future Trends",
+    title: "Smart Operations at Scale",
+    producer: "Kaynã de Oliveira",
+    confirmed: 0, tentative: 0, target: 4,
+    icp: ["COO", "CEO", "Chief Innovation Officer", "Head of Operations", "Head of Technology"],
+    allocated: [],
+    notes: "Sessão Sponsor-driven. Perfis de COO/Ops de grandes plataformas ou founders de automação/robótica em RE."
+  }
+];
+
+// WISHLIST DATA (keyed by session title, fuzzy-matched in JS)
+const WL_RAW = {
+  "AI, Real Estate & Future Trends": {"total":1,"byOwner":{"Ludwig Menke":1}},
+  "Branded Residences — Real Value?": {"total":2,"byOwner":{"Ana Godoy":1,"Julia Bearzotti":1}},
+  "Build-to-Rent - Can the Model Still Deliver Across Different Regions?": {"total":6,"byOwner":{"Juliana Pires":2,"Savio Swaby":1,"Ana Godoy":1,"GRI API":1,"Mariana Pereira":1}},
+  "Buyers X Sellers Reality Check - Pricing, Earn-Outs & Creative Structuring": {"total":7,"byOwner":{"Mariana Pereira":3,"Ana Godoy":2,"Adriana Lucchesi":1,"Mariana Bonucci":1}},
+  "Capital Stack: Whole Loans, Preferred Equity, Mezz - Capital Stack Engineering": {"total":10,"byOwner":{"Mariana Pereira":6,"GRI API":1,"Julia Bearzotti":1,"Ludwig Menke":1,"Mariana Bonucci":1}},
+  "Club Deals, JVs & Co-Invests - Are Bilateral Deals the New Normal?": {"total":6,"byOwner":{"Juliana Pires":3,"Adriana Lucchesi":2,"Mariana Pereira":1}},
+  "Conversions & Repositioning: When Does CRE Still Make Sense?": {"total":13,"byOwner":{"Mariana Bonucci":4,"Ana Godoy":3,"Savio Swaby":2,"Juliana Pires":2,"Julia Bearzotti":1,"Mariana Pereira":1}},
+  "Core - Where Are Real Deals Clearing in Europe Right Now?": {"total":7,"byOwner":{"Adriana Lucchesi":2,"Ana Godoy":2,"Savio Swaby":1,"Julia Bearzotti":1,"Mariana Pereira":1}},
+  "Data Centers - Still Underwritten or Already Overcrowded?": {"total":14,"byOwner":{"Mariana Pereira":6,"Adriana Lucchesi":3,"Savio Swaby":1,"Ana Godoy":1,"GRI API":1,"Julia Bearzotti":1,"Victor Heimann":1}},
+  "Dry Powder Ready to Deploy or Still Waiting for Conviction?": {"total":9,"byOwner":{"Mariana Pereira":3,"Mariana Bonucci":2,"Juliana Pires":2,"Ana Godoy":1,"Julia Bearzotti":1}},
+  "Exit Optionality - Underwriting Liquidity Before You Buy": {"total":9,"byOwner":{"Mariana Pereira":4,"Mariana Bonucci":2,"Savio Swaby":1,"Julia Bearzotti":1,"Adriana Lucchesi":1}},
+  "Financement France": {"total":4,"byOwner":{"Adriana Lucchesi":4}},
+  "Flex, Serviced Apartments & Co-Living - Where the Models Work and Where It Breaks?": {"total":8,"byOwner":{"Julia Bearzotti":4,"Adriana Lucchesi":1,"Ana Godoy":1,"GRI API":1,"Mariana Bonucci":1}},
+  "GCC - Global Capital Magnet?": {"total":8,"byOwner":{"Mariana Pereira":3,"Ana Godoy":2,"Mariana Bonucci":2,"Mariana Clemente":1}},
+  "Hospitality Lease, Management, Franchise, Hybrid Models: Where Risk Really Sits - Hotel Management Companies": {"total":6,"byOwner":{"Savio Swaby":1,"Adriana Lucchesi":1,"Ana Godoy":1,"GRI API":1,"Gabriela Furtado Aranda":1,"Julia Bearzotti":1}},
+  "Hospitality Risk-Adjusted Returns: Why Capital Still Accepts Deals?": {"total":6,"byOwner":{"Adriana Lucchesi":2,"Ana Godoy":1,"Julia Bearzotti":1,"Juliana Pires":1,"Mariana Pereira":1}},
+  "Hospitality's Fundamentals: Structural Shifts or Late-Cycle Trades?": {"total":4,"byOwner":{"Julia Bearzotti":2,"Savio Swaby":1,"Mariana Bonucci":1}},
+  "Immobilier Tertiaire et Transformation": {"total":1,"byOwner":{"Adriana Lucchesi":1}},
+  "Investissement et Risque France": {"total":1,"byOwner":{"Adriana Lucchesi":1}},
+  "Living France": {"total":1,"byOwner":{"Adriana Lucchesi":1}},
+  "Living as a Defensive Play - Myth or Reality?": {"total":6,"byOwner":{"Julia Bearzotti":2,"Mariana Pereira":2,"Ana Godoy":1,"Juliana Pires":1}},
+  "Logistics Local Markets Deals": {"total":7,"byOwner":{"Mariana Bonucci":3,"Juliana Pires":2,"Mariana Pereira":2}},
+  "Logistics Pan-European Strategies": {"total":9,"byOwner":{"Savio Swaby":2,"Julia Bearzotti":2,"Mariana Pereira":2,"Adriana Lucchesi":1,"Ana Godoy":1,"Mariana Bonucci":1}},
+  "Mid-market Financing Deals": {"total":11,"byOwner":{"Mariana Bonucci":6,"Julia Bearzotti":4,"GRI API":1}},
+  "Nordics Capital Re-entry: Where Is Money Moving First?": {"total":2,"byOwner":{"Juliana Pires":2}},
+  "Office 2.0 Which Markets Still Underwrite — Which Don't": {"total":12,"byOwner":{"Juliana Pires":4,"Adriana Lucchesi":2,"Ana Godoy":1,"Savio Swaby":1,"GRI API":1,"Julia Bearzotti":1,"Laura Sancesario":1,"Mariana Pereira":1}},
+  "Opening - International Capital & Global Macro Forces Shaping Real Estate Strategies": {"total":5,"byOwner":{"Adriana Lucchesi":2,"Beatriz Zarattini":1,"Ludwig Menke":1,"Mariana Pereira":1}},
+  "Opening - LPs Capital: The LP Mandate 2027 — Allocation Shifts, Portfolio Priorities & Where Institutional Capital Goes Next": {"total":9,"byOwner":{"Ana Godoy":3,"Mariana Pereira":2,"Juliana Pires":2,"Giovanna Paganini":1,"Adriana Lucchesi":1}},
+  "PBSA - Still Wins, But Where Is the Next Upside?": {"total":11,"byOwner":{"Mariana Bonucci":3,"Juliana Pires":2,"Mariana Pereira":2,"Julia Bearzotti":1,"Ana Godoy":1,"Savio Swaby":1,"Laura Sancesario":1}},
+  "Platform Plays vs. Single Assets Deals: Scaling Hospitality in Europe": {"total":6,"byOwner":{"Ana Godoy":4,"GRI API":1,"Mariana Pereira":1}},
+  "Portfolio Trades vs. Single Assets - Liquidity Pros & Cons": {"total":4,"byOwner":{"Ana Godoy":2,"Savio Swaby":1,"Mariana Pereira":1}},
+  "Private Credit x Banks Collaboration - Where Each Wins": {"total":10,"byOwner":{"Mariana Bonucci":5,"Mariana Pereira":4,"Adriana Lucchesi":1}},
+  "Refinancing the Wall - What Breaks, What Extends, What Reprices": {"total":9,"byOwner":{"Mariana Pereira":4,"Mariana Bonucci":2,"Adriana Lucchesi":1,"Juliana Pires":1,"Julia Bearzotti":1}},
+  "Residential BTS Development & Regulation Across Europe - Where Returns Survive": {"total":9,"byOwner":{"Ana Godoy":5,"Savio Swaby":2,"GRI API":1,"Mariana Bonucci":1}},
+  "Retail Polarisation: Prime Recovery vs. Secondary Decline": {"total":11,"byOwner":{"Ana Godoy":5,"Savio Swaby":2,"Juliana Pires":2,"Julia Bearzotti":1,"Mariana Pereira":1}},
+  "Secondaries Market - A New Trading Window?": {"total":6,"byOwner":{"Mariana Pereira":4,"Savio Swaby":1,"Julia Bearzotti":1}},
+  "Senior Living - The Next Core?": {"total":7,"byOwner":{"Julia Bearzotti":3,"Adriana Lucchesi":1,"Juliana Pires":1,"Mariana Bonucci":1,"Mariana Pereira":1}},
+  "The European Debt Map - Who's Lending, On What, and Why": {"total":8,"byOwner":{"Mariana Pereira":6,"Adriana Lucchesi":1,"Mariana Bonucci":1}},
+  "USA": {"total":3,"byOwner":{"Ana Godoy":3}},
+  "Value-Add - What Actually Trades in 2026?": {"total":11,"byOwner":{"Adriana Lucchesi":3,"Savio Swaby":2,"Julia Bearzotti":2,"Juliana Pires":1,"Kayna Oliveira":1,"Mariana Bonucci":1,"Mariana Pereira":1}},
+  "Venture Capital, Proptech & Real Estate Innovation: What Creates Real Value Now?": {"total":2,"byOwner":{"Savio Swaby":1,"Mariana Bonucci":1}}
+};
+
+// Build normalized index for fuzzy match
+function normStr(s) { return s.toLowerCase().replace(/[^a-z0-9]/g,''); }
+const WL_NORM = {};
+Object.keys(WL_RAW).forEach(k => { WL_NORM[normStr(k)] = WL_RAW[k]; });
+
+function getWLData(sessionTitle) {
+  const n = normStr(sessionTitle);
+  if (WL_NORM[n]) return WL_NORM[n];
+  // Partial match: find key whose normalized form shares >=6 chars prefix or substring
+  const keys = Object.keys(WL_NORM);
+  for (const k of keys) {
+    if (n.includes(k.slice(0,12)) || k.includes(n.slice(0,12))) return WL_NORM[k];
+  }
+  return null;
+}
+
+
+// STATUS HELPERS
+function getStatus(s) {
+  const t = s.confirmed + s.tentative;
+  if (s.target === null) return 'no-target';
+  if (t === 0) return 'no-data';
+  if (t >= s.target) return 'on-track';
+  if (t / s.target >= 0.5) return 'at-risk';
+  return 'behind';
+}
+function getIcpStatus(s) {
+  if (!s.allocated.length) return 'empty';
+  const matched = s.allocated.filter(a => a.fit === 'match').length;
+  if (matched >= s.icp.length) return 'ok';
+  return 'gap';
+}
+const STATUS_LABELS = {'on-track':'Target met','at-risk':'Partial','behind':'Below target','no-data':'No co-chairs','no-target':'No target'};
+const STATUS_COLORS = {'on-track':'#1D9E75','at-risk':'#EF9F27','behind':'#E24B4A','no-data':'#b0b0aa','no-target':'#b0b0aa'};
+
+// CHART DATA
+const CHART_DATA = [
+  {title:"Opening Day 1 (LPs)",confirmed:2,tentative:0,target:4},
+  {title:"Opening Day 2 (Investment)",confirmed:0,tentative:0,target:4},
+  {title:"Closing (AI/Trends)",confirmed:0,tentative:0,target:1},
+  {title:"Core",confirmed:0,tentative:0,target:5},
+  {title:"Value-Add",confirmed:2,tentative:0,target:6},
+  {title:"Club Deals / JVs",confirmed:1,tentative:0,target:6},
+  {title:"Buyers x Sellers",confirmed:1,tentative:0,target:6},
+  {title:"Exit Optionality",confirmed:0,tentative:0,target:5},
+  {title:"Portfolio Trades x Single Assets",confirmed:0,tentative:1,target:6},
+  {title:"Secondaries Market",confirmed:0,tentative:0,target:5},
+  {title:"Dry Powder",confirmed:0,tentative:0,target:6},
+  {title:"European Debt Map",confirmed:0,tentative:0,target:6},
+  {title:"Refinancing the Wall",confirmed:0,tentative:0,target:6},
+  {title:"Private Credit x Banks",confirmed:1,tentative:0,target:6},
+  {title:"Mid-market Financing",confirmed:1,tentative:0,target:5},
+  {title:"Capital Stack",confirmed:1,tentative:0,target:6},
+  {title:"Office 2.0",confirmed:1,tentative:0,target:6},
+  {title:"Retail Polarisation",confirmed:2,tentative:0,target:6},
+  {title:"Logistics Pan-European",confirmed:1,tentative:0,target:6},
+  {title:"Logistics Local",confirmed:1,tentative:0,target:6},
+  {title:"Conversion & Repositioning",confirmed:0,tentative:0,target:5},
+  {title:"Data Centers",confirmed:0,tentative:0,target:6},
+  {title:"Living as Defensive Play",confirmed:0,tentative:0,target:6},
+  {title:"Affordability & Regulation",confirmed:0,tentative:0,target:4},
+  {title:"PBSA",confirmed:0,tentative:0,target:6},
+  {title:"Flex & Co-Living",confirmed:1,tentative:1,target:6},
+  {title:"Senior Living",confirmed:0,tentative:0,target:5},
+  {title:"Build-to-Rent",confirmed:1,tentative:0,target:6},
+  {title:"Hospitality Comeback",confirmed:0,tentative:0,target:6},
+  {title:"Hospitality Risk-Adjusted",confirmed:0,tentative:0,target:6},
+  {title:"Branded Residences",confirmed:2,tentative:0,target:4},
+  {title:"Lease / Mgmt / Franchise",confirmed:0,tentative:0,target:6},
+  {title:"Platform Plays x Single-Asset",confirmed:0,tentative:0,target:6},
+  {title:"France Discussion 1",confirmed:0,tentative:0,target:3},
+  {title:"France Discussion 2",confirmed:0,tentative:0,target:5},
+  {title:"France Discussion 3",confirmed:0,tentative:0,target:5},
+  {title:"France Discussion 4",confirmed:0,tentative:0,target:5},
+  {title:"UK",confirmed:0,tentative:0,target:3},
+  {title:"Germany",confirmed:0,tentative:0,target:3},
+  {title:"Spain",confirmed:0,tentative:0,target:3},
+  {title:"Italy",confirmed:0,tentative:0,target:3},
+  {title:"Portugal",confirmed:0,tentative:0,target:3},
+  {title:"CEE",confirmed:0,tentative:1,target:3},
+  {title:"GCC",confirmed:0,tentative:0,target:3},
+  {title:"Nordics",confirmed:2,tentative:0,target:null},
+  {title:"CapEx, ESG & Obsolescence",confirmed:0,tentative:0,target:4},
+  {title:"Data & Underwriting",confirmed:0,tentative:0,target:4},
+  {title:"Demographics",confirmed:0,tentative:0,target:4},
+  {title:"Venture Capital / Proptech",confirmed:0,tentative:0,target:4},
+  {title:"Smart Operations",confirmed:0,tentative:0,target:4},
+];
+
+// COMPANIES DATA
+const TARGET_COMPANIES = [
+  // TOP INVESTORS — Members
+  {name:"AXA IM",cat:"Investor",member:true},
+  {name:"UBS",cat:"Investor",member:true},
+  {name:"Brookfield",cat:"Investor",member:true},
+  {name:"Blackstone",cat:"Investor",member:true},
+  {name:"DWS",cat:"Investor",member:true},
+  {name:"Barings",cat:"Investor",member:true},
+  {name:"Morgan Stanley",cat:"Investor",member:true},
+  {name:"BentallGreenOak",cat:"Investor",member:true},
+  {name:"Hines",cat:"Investor",member:true},
+  {name:"JP Morgan",cat:"Investor",member:true},
+  {name:"LaSalle",cat:"Investor",member:true},
+  {name:"Heitman",cat:"Investor",member:true},
+  {name:"PIMCO",cat:"Investor",member:true},
+  {name:"Generali",cat:"Investor",member:true},
+  {name:"Starwood",cat:"Investor",member:true},
+  {name:"Prologis",cat:"Investor",member:true},
+  {name:"BNP Paribas REIM",cat:"Investor",member:true},
+  {name:"BlackRock",cat:"Investor",member:true},
+  {name:"Amundi",cat:"Investor",member:true},
+  {name:"Greystar",cat:"Investor",member:true},
+  {name:"Patron Capital",cat:"Investor",member:true},
+  {name:"Apollo",cat:"Investor",member:true},
+  {name:"Oaktree",cat:"Investor",member:true},
+  {name:"Tristan",cat:"Investor",member:true},
+  // TOP INVESTORS — Non-members
+  {name:"PGIM",cat:"Investor",member:false},
+  {name:"Nuveen",cat:"Investor",member:false},
+  {name:"Invesco",cat:"Investor",member:false},
+  {name:"Swiss Life",cat:"Investor",member:false},
+  {name:"CBRE Investment Management",cat:"Investor",member:false},
+  {name:"Tishman Speyer",cat:"Investor",member:false},
+  {name:"MetLife",cat:"Investor",member:false},
+  {name:"Aviva",cat:"Investor",member:false},
+  {name:"AEW",cat:"Investor",member:false},
+  {name:"APG",cat:"Investor",member:false},
+  {name:"M&G",cat:"Investor",member:false},
+  {name:"DekaImmobilien",cat:"Investor",member:false},
+  {name:"Union Investment",cat:"Investor",member:false},
+  {name:"Aberdeen",cat:"Investor",member:false},
+  {name:"Legal & General",cat:"Investor",member:false},
+  {name:"Schroders",cat:"Investor",member:false},
+  {name:"Patrizia",cat:"Investor",member:false},
+  // TOP LENDERS — Members
+  {name:"Aareal Bank",cat:"Lender",member:true},
+  {name:"BNP Paribas",cat:"Lender",member:true},
+  {name:"Citi",cat:"Lender",member:true},
+  {name:"Goldman Sachs",cat:"Lender",member:true},
+  {name:"ING",cat:"Lender",member:true},
+  {name:"Natixis",cat:"Lender",member:true},
+  {name:"RBC",cat:"Lender",member:true},
+  {name:"Societe Generale",cat:"Lender",member:true},
+  {name:"Wells Fargo",cat:"Lender",member:true},
+  {name:"Ares Management",cat:"Lender",member:true},
+  {name:"Allianz Real Estate",cat:"Lender",member:true},
+  {name:"LaSalle IM",cat:"Lender",member:true},
+  {name:"Tristan Capital",cat:"Lender",member:true},
+  // TOP LENDERS — Non-members
+  {name:"Berlin Hyp",cat:"Lender",member:false},
+  {name:"Barclays",cat:"Lender",member:false},
+  {name:"DekaBank",cat:"Lender",member:false},
+  {name:"HSBC",cat:"Lender",member:false},
+  {name:"Cheyne Capital",cat:"Lender",member:false},
+  {name:"DRC Savills Investment",cat:"Lender",member:false},
+  {name:"Credit Agricole",cat:"Lender",member:false},
+  {name:"Helaba",cat:"Lender",member:false},
+  {name:"LBBW",cat:"Lender",member:false},
+];
+
+// People lookup for company matching
+const PEOPLE_BY_COMPANY = {};
+SESSIONS.forEach(s => s.allocated.forEach(a => {
+  const key = a.company.toLowerCase().split(/[\s\-]/)[0];
+  PEOPLE_BY_COMPANY[key] = a.name;
+}));
+
+function personForCompany(name) {
+  const words = name.toLowerCase().split(/[\s\-&]/);
+  for (const w of words) {
+    if (w.length > 2 && PEOPLE_BY_COMPANY[w]) return PEOPLE_BY_COMPANY[w];
+  }
+  // Try partial match
+  for (const [key, person] of Object.entries(PEOPLE_BY_COMPANY)) {
+    if (name.toLowerCase().includes(key) || key.includes(words[0])) return person;
+  }
+  return null;
+}
+
+// Known in-program companies (from co-chairs file, normalized)
+const IN_PROGRAM_KEYS = [
+  'aew','ares','aviva','colliers','crestyl','dfi','emerald','galli',
+  'gulf','harbert','havenstone','hillwood','limehome','macquarie',
+  'nobu','numa','park','reino','skanska','carey','zeitgeist','aera'
+];
+
+function isInProgram(name) {
+  const lower = name.toLowerCase();
+  return IN_PROGRAM_KEYS.some(k => lower.includes(k));
+}
+
+// TAB SWITCHING
+function switchTab(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+  if (id === 'chart') renderChart();
+  if (id === 'companies') renderCompanies();
+  if (id === 'perf') renderPerf();
+}
+
+// CHART
+let chartInst = null;
+function renderChart() {
+  if (chartInst) return;
+  const labels = CHART_DATA.map(d => d.title);
+  const conf = CHART_DATA.map(d => d.confirmed);
+  const tent = CHART_DATA.map(d => d.tentative);
+  // For scatter target markers: use {x: target, y: index}
+  const tgtPoints = CHART_DATA.map((d, i) => d.target !== null ? {x: d.target, y: d.title} : null).filter(Boolean);
+
+  chartInst = new Chart(document.getElementById('pgChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Confirmed',
+          data: conf,
+          backgroundColor: '#1D9E75',
+          borderRadius: 3,
+          stack: 'stack',
+          barThickness: 14,
+        },
+        {
+          label: 'Tentative',
+          data: tent,
+          backgroundColor: '#EF9F27',
+          borderRadius: 3,
+          stack: 'stack',
+          barThickness: 14,
+        },
+        {
+          label: 'Target',
+          data: CHART_DATA.map(d => d.target),
+          type: 'scatter',
+          pointStyle: 'line',
+          pointRadius: 12,
+          pointBorderWidth: 2.5,
+          pointBorderColor: '#E24B4A',
+          backgroundColor: 'transparent',
+          borderColor: 'transparent',
+          showLine: false,
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {display: false},
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              if (ctx.dataset.label === 'Target') return 'Target: ' + ctx.raw;
+              return ctx.dataset.label + ': ' + ctx.raw;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          min: 0,
+          max: 10,
+          ticks: {stepSize: 1, font: {size: 11}, color: '#6b6b67'},
+          grid: {color: 'rgba(0,0,0,0.06)'},
+          title: {display: true, text: 'Number of co-chairs', font: {size: 11}, color: '#9b9b97'}
+        },
+        y: {
+          stacked: true,
+          ticks: {font: {size: 11}, color: '#6b6b67'},
+          grid: {display: false}
+        }
+      }
+    }
+  });
+}
+
+// COMPANIES
+function renderCompanies() {
+  const inProg = TARGET_COMPANIES.filter(c => isInProgram(c.name));
+  const notInProg = TARGET_COMPANIES.filter(c => !isInProgram(c.name));
+
+  // Deduplicate by name
+  const seen = new Set();
+  const inUniq = inProg.filter(c => { if (seen.has(c.name)) return false; seen.add(c.name); return true; });
+  const seen2 = new Set();
+  const outUniq = notInProg.filter(c => { if (seen2.has(c.name)) return false; seen2.add(c.name); return true; });
+
+  let html = '<div class="comp-col">';
+  html += '<h3 class="in">&#10003; No programa (' + inUniq.length + ')</h3>';
+  inUniq.forEach(c => {
+    const person = personForCompany(c.name);
+    html += '<div class="crow"><div class="cdot in"></div>';
+    html += '<div class="cname">' + c.name + ' <span class="cmember ' + (c.member?'yes':'no') + '">' + (c.member?'member':'non-member') + '</span></div>';
+    if (person) html += '<div class="cperson">' + person + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  html += '<div class="comp-col">';
+  html += '<h3 class="out">&#10007; Não está no programa (' + outUniq.length + ')</h3>';
+  outUniq.forEach(c => {
+    html += '<div class="crow"><div class="cdot out"></div>';
+    html += '<div class="cname">' + c.name + ' <span class="cmember ' + (c.member?'yes':'no') + '">' + (c.member?'member':'non-member') + '</span></div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  document.getElementById('comp-grid').innerHTML = html;
+}
+
+
+
+// ICP TAB RENDER
+function render() {
+  const fStream = document.getElementById('f-stream').value;
+  const fProducer = document.getElementById('f-producer').value;
+  const fIcp = document.getElementById('f-icp').value;
+  const fStatus = document.getElementById('f-status').value;
+  let sessions = SESSIONS;
+  if (fStream) sessions = sessions.filter(s => s.stream === fStream);
+  if (fProducer) sessions = sessions.filter(s => s.producer === fProducer);
+  if (fIcp) sessions = sessions.filter(s => getIcpStatus(s) === fIcp);
+  if (fStatus) sessions = sessions.filter(s => getStatus(s) === fStatus);
+  document.getElementById('count').textContent = sessions.length + ' sessions';
+  if (!sessions.length) {
+    document.getElementById('body').innerHTML = '<div style="text-align:center;padding:40px;color:#9b9b97">No sessions found.</div>';
+    return;
+  }
+  const streams = [...new Set(sessions.map(s => s.stream))];
+  let html = '';
+  streams.forEach(stream => {
+    html += '<div class="sh">' + stream + '</div>';
+    sessions.filter(s => s.stream === stream).forEach(s => { html += renderCard(s); });
+  });
+  document.getElementById('body').innerHTML = html;
+  document.querySelectorAll('.stop').forEach(el => {
+    el.addEventListener('click', () => {
+      const sec = document.getElementById('icp-' + el.dataset.id);
+      const ch = el.querySelector('.chevron');
+      if (sec) { sec.classList.toggle('open'); ch.classList.toggle('open'); }
+    });
+  });
+}
+
+let cid = 0;
+function renderCard(s) {
+  const id = cid++;
+  const total = s.confirmed + s.tentative;
+  const st = getStatus(s);
+  const pct = s.target ? Math.min(100, Math.round(total / s.target * 100)) : 0;
+  const col = STATUS_COLORS[st];
+  const pills = total === 0
+    ? '<span class="pill pn">None allocated</span>'
+    : (s.confirmed > 0 ? '<span class="pill pc">' + s.confirmed + ' confirmed</span>' : '') +
+      (s.tentative > 0 ? '<span class="pill pt">' + s.tentative + ' tentative</span>' : '');
+  const tgtHtml = s.target !== null
+    ? '<div class="stgt">' + total + ' / ' + s.target + ' · ' + pct + '%</div><div class="sbar"><div class="sbarfill" style="width:' + pct + '%;background:' + col + '"></div></div>'
+    : '<div class="stgt" style="color:#b0b0aa">Meta não definida</div>';
+
+  let icpHtml = '<div class="icp-legend">' +
+    '<div class="li"><div class="ldot" style="background:#1D9E75"></div>Profile covered</div>' +
+    '<div class="li"><div class="ldot" style="background:#EF9F27"></div>Partially covered</div>' +
+    '<div class="li"><div class="ldot" style="background:#E24B4A"></div>Profile missing</div>' +
+    '</div><div class="icp-grid">';
+
+  // Left: allocated
+  icpHtml += '<div class="icp-col"><h4>ICPs Covered</h4>';
+  if (!s.allocated.length) {
+    icpHtml += '<div style="font-size:12px;color:#9b9b97;font-style:italic">No co-chairs allocated.</div>';
+  } else {
+    s.allocated.forEach(a => {
+      icpHtml += '<div class="pr"><div class="pdot ' + (a.fit === 'match' ? 'matched' : 'partial') + '"></div>' +
+        '<div class="pinfo"><div class="ptitle">' + a.matchedIcp + '</div>' +
+        '<div class="pdetail">' + a.jobTitle + '</div>' +
+        '<span class="pperson">' + a.name + ' · ' + a.company + '</span></div></div>';
+    });
+  }
+  icpHtml += '</div>';
+
+  // Right: missing
+  icpHtml += '<div class="icp-col"><h4>ICPs Missing</h4>';
+  if (!s.allocated.length) {
+    s.icp.forEach(icp => {
+      icpHtml += '<div class="pr"><div class="pdot missing"></div><div class="pinfo"><div class="ptitle">' + icp + '</div></div></div>';
+    });
+  } else {
+    let missCnt = 0;
+    s.icp.forEach(icp => {
+      const covered = s.allocated.some(a => {
+        const ai = a.matchedIcp.toLowerCase();
+        const jt = (a.jobTitle || '').toLowerCase();
+        const ii = icp.toLowerCase();
+        // Split on spaces, slashes, commas — keep words 2+ chars
+        const aiW = ai.split(/[\s/,&\-]+/).filter(w => w.length > 1);
+        const jtW = jt.split(/[\s/,&\-]+/).filter(w => w.length > 1);
+        const iiW = ii.split(/[\s/,&\-]+/).filter(w => w.length > 1);
+        // A player covers an ICP if any significant word overlaps
+        // between the required ICP and the matched ICP or job title
+        const matchesProfile = iiW.some(w =>
+          aiW.some(aw => aw.includes(w) || w.includes(aw)) ||
+          jtW.some(jw => jw.includes(w) || w.includes(jw))
+        );
+        return matchesProfile;
+      });
+      if (!covered) {
+        missCnt++;
+        icpHtml += '<div class="pr"><div class="pdot missing"></div><div class="pinfo"><div class="ptitle">' + icp + '</div></div></div>';
+      }
+    });
+    if (!missCnt) icpHtml += '<div style="font-size:12px;color:#1D9E75">All priority ICPs covered ✓</div>';
+  }
+  icpHtml += '</div></div>';
+  if (s.notes) icpHtml += '<div class="icpnote">💡 ' + s.notes + '</div>';
+
+  // WL section
+  const wl = getWLData(s.title);
+  let wlHtml = '';
+  if (wl) {
+    const wlTarget = s.target || 0;
+    // Threshold: ok >= target*2, warn >= target, low < target
+    const wlClass = wl.total >= wlTarget * 2 ? 'ok' : wl.total >= wlTarget ? 'warn' : 'low';
+    // Filter out GRI API from display
+    const owners = Object.entries(wl.byOwner).filter(([o]) => o !== 'GRI API').sort((a,b) => b[1]-a[1]);
+    const ownerHtml = owners.map(([o, c]) => {
+      const sessionWlMap = WL_BY_SESSION[s.title] || (() => {
+        // fuzzy fallback: find key that shares first 20 chars
+        const k = Object.keys(WL_BY_SESSION).find(k => k.slice(0,20) === s.title.slice(0,20));
+        return k ? WL_BY_SESSION[k] : {};
+      })();
+      const players = (sessionWlMap[o] || []);
+      const playerRows = players.map(p =>
+        '<div class="wl-dropdown-item"><div class="wl-dropdown-name">' + p + '</div></div>'
+      ).join('');
+      const dropId = 'wld-' + o.replace(/\s+/g,'_') + '-' + Math.random().toString(36).slice(2,6);
+      return '<div class="wl-owner" onclick="toggleWlDrop(event,\'' + dropId + '\')">' +
+        '<span class="wl-owner-name">' + o + '</span>' +
+        '<span class="wl-owner-count">' + c + '</span>' +
+        '<div class="wl-dropdown" id="' + dropId + '">' + playerRows + '</div>' +
+        '</div>';
+    }).join('');
+    wlHtml = '<div class="wl-section">' +
+      '<div class="wl-header">' +
+      '<span class="wl-title">Wishlist</span>' +
+      '<span class="wl-total ' + wlClass + '">' + wl.total + ' players</span>' +
+      '</div>' +
+      '<div class="wl-owners">' + (ownerHtml || '<span class="wl-none">No owners identified</span>') + '</div>' +
+      '</div>';
+  } else {
+    wlHtml = '<div class="wl-section"><div class="wl-header"><span class="wl-title">Wishlist</span><span class="wl-total low">0 players</span></div><span class="wl-none">No players in wishlist for this session.</span></div>';
+  }
+
+  return '<div class="scard ' + st + '">' +
+    '<div class="stop" data-id="' + id + '">' +
+    '<div><div class="stitle">' + s.title + '</div><div class="spills">' + pills + '</div></div>' +
+    '<div class="sright"><div style="display:flex;align-items:center;gap:6px">' +
+    '<span class="stotal">' + total + '</span>' +
+    '<span class="stag ' + st + '">' + STATUS_LABELS[st] + '</span>' +
+    '<span class="chevron">▼</span></div>' + tgtHtml + '</div></div>' +
+    wlHtml +
+    '<div class="icp-section" id="icp-' + id + '">' + icpHtml + '</div></div>';
+}
+
+
+
+
+
+const WL_BY_SESSION = {"AI, Real Estate & Future Trends":{"Ludwig Menke":["Wei Li"]},"Branded Residences — Real Value?":{"Ana Godoy":["Giampiero Schiavo"],"Julia Bearzotti":["Daniel Johansson"]},"Build-to-Rent - Can the Model Still Deliver Across Different Regions?":{"Ana Godoy":["Toni Elias"],"Juliana Pires":["Joseph De Leo","Mitchell Voss"],"Mariana Pereira":["Kristian Branum-Burns"],"Savio Swaby":["Antonio Galea"]},"Buyers X Sellers Reality Check - Pricing, Earn-Outs & Creative Structuring":{"Adriana Lucchesi":["Sophie Colin-Sansier"],"Ana Godoy":["Rodolfo Petrosino","Marcelo Fedak"],"Mariana Bonucci":["Audrey Klein"],"Mariana Pereira":["Krysto Nikolic","Justin Hildebrandt","Michael Pegler"]},"Capital Stack: Whole Loans, Preferred Equity, Mezz - Capital Stack Engineering":{"Julia Bearzotti":["Nicolas Massière"],"Ludwig Menke":["Agnes Decourcelle"],"Mariana Bonucci":["Robert Dusel"],"Mariana Pereira":["Irene Ryan","Hal Shaw","George Molesworth","Omar Glaoui","Michael Shields","Stefano Tomaselli"]},"Club Deals, JVs & Co-Invests - Are Bilateral Deals the New Normal?":{"Adriana Lucchesi":["Bertrand Masson","Donato Saponara"],"Juliana Pires":["Paul Brennan","Tim Wilkinson","David Collett"],"Mariana Pereira":["Romain Ferron"]},"Conversions & Repositioning: When Does CRE Still Make Sense?":{"Ana Godoy":["Marta Esteves Costa","Miguel França Santana","Vincenzo Scerbo"],"Julia Bearzotti":["Claude Kandiyoti"],"Juliana Pires":["Noah Steinberg","Nebil Șenman"],"Mariana Bonucci":["Ioanna Paschalidou","Alex Smertnik","Sara Willard","Shiraz Jiwa"],"Mariana Pereira":["Josh Lawrence"],"Savio Swaby":["Václav Matoušek","Marco Zarges"]},"Core - Where Are Real Deals Clearing in Europe Right Now?":{"Adriana Lucchesi":["Pierre Lariviere","Hubert Joachim"],"Ana Godoy":["Riccardo Dallolio","Michele Russo"],"Julia Bearzotti":["Koldo Ibarra"],"Mariana Pereira":["Aref Lahham"],"Savio Swaby":["Markus Koenigstein"]},"Data Centers - Still Underwritten or Already Overcrowded?":{"Adriana Lucchesi":["Luke Baker","Olivier Caux","Lionel Grotto"],"Ana Godoy":["Joao Cristina"],"Julia Bearzotti":["Fernando Gómez Fortún"],"Mariana Pereira":["Paco González","Maximilian Gentile","Michael Swank","Andrea Bora","Partha Sarathy","Michiel Celis"],"Savio Swaby":["Lars Meisinger"],"Victor Heimann":["Maximilian Binhold"]},"Dry Powder Ready to Deploy or Still Waiting for Conviction?":{"Ana Godoy":["Matteo Minardi"],"Julia Bearzotti":["Cristina García-Peri"],"Juliana Pires":["Emma Jack","Paul Bashir"],"Mariana Bonucci":["Lisa Feifer","Clark Coffee"],"Mariana Pereira":["Ali Haroon","Tim Breitenstein","John Keegan"]},"Exit Optionality - Underwriting Liquidity Before You Buy":{"Adriana Lucchesi":["Mathieu Bougette"],"Julia Bearzotti":["Emanuele Dubini"],"Mariana Bonucci":["Charles Favard","Anders Hemmingsen"],"Mariana Pereira":["Van Stults","Ulf Pleschiutschnig","Edward Jones","Laia Massague"],"Savio Swaby":["Clemens Schaefer"]},"Financement France":{"Adriana Lucchesi":["Sandrine Amsili","Nicolas Darsa","Priscilla Le Priellec","Thomas Bimont"]},"Flex, Serviced Apartments & Co-Living - Where the Models Work and Where It Breaks?":{"Adriana Lucchesi":["François Roth"],"Ana Godoy":["Michele Beolchini"],"Julia Bearzotti":["Carlos Molero Sánchez de la Blanca","Joaquín Castellví","José Torres","Esteve Almirall"],"Mariana Bonucci":["Jill Xiaozhou Ju"]},"GCC - Global Capital Magnet?":{"Ana Godoy":["Hadi Nasser","Patrick Brauer"],"Mariana Bonucci":["Arvi Luoma","Marc Fuhrmann"],"Mariana Clemente":["Dan Teper"],"Mariana Pereira":["Alexander Riches","Josh Cleveland","Paul Devonshire"]},"Hospitality Lease, Management, Franchise, Hybrid Models: Where Risk Really Sits - Hotel Management Companies":{"Adriana Lucchesi":["Hélène Gauthier"],"Ana Godoy":["MariaPia Intini"],"Gabriela Furtado Aranda":["Alejandro Acevedo"],"Julia Bearzotti":["Carlo Paguio"],"Savio Swaby":["Tobias Reinecke"]},"Hospitality Risk-Adjusted Returns: Why Capital Still Accepts Deals?":{"Adriana Lucchesi":["Mauritia Foujols","Clémence Caniaux"],"Ana Godoy":["Mauro Savoia"],"Julia Bearzotti":["Brian Betel"],"Juliana Pires":["Aziz Francis"],"Mariana Pereira":["Ryan Donn"]},"Hospitality's Fundamentals: Structural Shifts or Late-Cycle Trades?":{"Julia Bearzotti":["Eva Vigil","Catherine Chan"],"Mariana Bonucci":["Namid Mangalji"],"Savio Swaby":["Kamaldeep Manaktala"]},"Immobilier Tertiaire et Transformation":{"Adriana Lucchesi":["Arnaud Broussou"]},"Investissement et Risque France":{"Adriana Lucchesi":["Sébastien Pezet"]},"Living France":{"Adriana Lucchesi":["Laura Peral Mercier"]},"Living as a Defensive Play - Myth or Reality?":{"Ana Godoy":["Luís Mota Duarte"],"Julia Bearzotti":["Mario Lapiedra Vivanco","Tom Livelli"],"Juliana Pires":["Stan Kubacek"],"Mariana Pereira":["James Piper","Mark Allnutt"]},"Logistics Local Markets Deals":{"Juliana Pires":["Dobrin Staikov","Lily Lin"],"Mariana Bonucci":["Angus M Scott Brown","Dean Harrison","Robert Giusti"],"Mariana Pereira":["James Wakelin","Mohamad (Mac) Abouchalbak"]},"Logistics Pan-European Strategies":{"Adriana Lucchesi":["Vincent Sadé"],"Ana Godoy":["Fabrizio Lauro"],"Julia Bearzotti":["Rob Cotterell","Joerg Kreindl"],"Mariana Bonucci":["Michael Abel"],"Mariana Pereira":["Paul Segreto","Christian Jamison"],"Savio Swaby":["Gunther Deutsch","Christopher Garbe"]},"Mid-market Financing Deals":{"Julia Bearzotti":["Alberto López Balbas","Itamar Volkov","Jaime Cano","Hugh Fraser"],"Mariana Bonucci":["Imo Skrzypczyk","Lorna Brown","Eliot Kaye","Limor Shilo","Deepesh Thakrar","Richard Croft"]},"Nordics Capital Re-entry: Where Is Money Moving First?":{"Juliana Pires":["Jonas Andersson","Martti Savenius"]},"Office 2.0 Which Markets Still Underwrite — Which Don't":{"Adriana Lucchesi":["Ajay Phull","Paul Raingold"],"Ana Godoy":["Philipp Braunfels"],"Julia Bearzotti":["Edmund Eggins"],"Juliana Pires":["Arkadiusz Rudzki","Guenther Artner","Maciej Dyjas","Karol Pilniewicz"],"Laura Sancesario":["Thierry Julienne"],"Mariana Pereira":["Steven Skinner"],"Savio Swaby":["Alexander Kraemer"]},"Opening - International Capital & Global Macro Forces Shaping Real Estate Strategies":{"Adriana Lucchesi":["Antoine Aubry","Hubert Joachim"],"Beatriz Zarattini":["Hector Grisi Checa"],"Ludwig Menke":["Wei Li"],"Mariana Pereira":["Brad Hyler"]},"Opening - LPs Capital: The LP Mandate 2027 — Allocation Shifts, Portfolio Priorities & Where Institutional Capital Goes Next":{"Adriana Lucchesi":["Christina Forrest"],"Ana Godoy":["Christophe Ben Naceur","Khadija Benzit","Gianlorenzo Paolella"],"Giovanna Paganini":["Jenny Hammarlund"],"Juliana Pires":["Guilain Decrop","Jayesh Patel"],"Mariana Pereira":["Tracy Stroh","Thomas Jackson"]},"PBSA - Still Wins, But Where Is the Next Upside?":{"Ana Godoy":["Domenico Giusti"],"Julia Bearzotti":["Russell Petrie"],"Juliana Pires":["Zdena Noack","Judyta Sawicka"],"Laura Sancesario":["Luca Turco"],"Mariana Bonucci":["Carlo Matta","John Jacobs","Daniel Harris"],"Mariana Pereira":["Amroy Lal","Justin Hamer"],"Savio Swaby":["Gawain Smart"]},"Platform Plays vs. Single Assets Deals: Scaling Hospitality in Europe":{"Ana Godoy":["Frederico Arruda","Massimo Baldo","Grazi Paineli","Fabio Longo"],"Mariana Pereira":["Tina Yu"]},"Portfolio Trades vs. Single Assets - Liquidity Pros & Cons":{"Ana Godoy":["Francisco Sottomayor","Stefano Maturi"],"Mariana Pereira":["Rafael Coste Campos"],"Savio Swaby":["Bernd Haggenmüller"]},"Private Credit x Banks Collaboration - Where Each Wins":{"Adriana Lucchesi":["Jerome Gatipon-Bachette"],"Mariana Bonucci":["Marco Rampin","Stephanie Shelmerdine","Nicola Free","Ali Imraan","Martin Kom"],"Mariana Pereira":["Russell Gould","Jim Blakemore","Lorcain Egan","Shervin Ghassemi"]},"Refinancing the Wall - What Breaks, What Extends, What Reprices":{"Adriana Lucchesi":["Amir Saleem"],"Julia Bearzotti":["Sameer Dalamal"],"Juliana Pires":["Nikša Markovac"],"Mariana Bonucci":["Laurine Amiel","Thomas Lloyd Jones"],"Mariana Pereira":["Rossitsa Koevska","Shaun Connery","Alessandro Luca","Esh Subramanian"]},"Residential BTS Development & Regulation Across Europe - Where Returns Survive":{"Ana Godoy":["Alessandro Pallaoro","Katja Pazelskaya","Gabriel Uzgen","Hugo Velez","Garth Martin"],"Mariana Bonucci":["William Yerburgh"],"Savio Swaby":["Lars Von Lackum","Refael Zamir"]},"Retail Polarisation: Prime Recovery vs. Secondary Decline":{"Ana Godoy":["Patricia Pinto","Umberto Trussoni","Cecile Imbault","Pedro Coelho","Gabriele Cerrone"],"Julia Bearzotti":["Dilip Khullar"],"Juliana Pires":["Sylvie Geuten - Carpentier","Krystian Modrzejewski"],"Mariana Pereira":["Colin Campbell"],"Savio Swaby":["Sebastian Wasser","Volker Kraft"]},"Secondaries Market - A New Trading Window?":{"Julia Bearzotti":["Patrick Hablal"],"Mariana Pereira":["Duncan MacPherson","Pooja Patel","Derek Rich","Cherine Aboulzelof"],"Savio Swaby":["Dirk Brandes"]},"Senior Living - The Next Core?":{"Adriana Lucchesi":["Frédéric Dib"],"Julia Bearzotti":["Cristina Pérez Liz","Jorge Pepa","Giovanni Perin"],"Juliana Pires":["John Harbert"],"Mariana Bonucci":["Jane Stockdale"],"Mariana Pereira":["Stuart Keith"]},"The European Debt Map - Who's Lending, On What, and Why":{"Adriana Lucchesi":["Sascha Bock"],"Mariana Bonucci":["Daniel Pottorff"],"Mariana Pereira":["David Gorleku","Jai Patel","Jeff Fastov","Ben Eppley","Irakli Meskhi","Manja Stueck"]},"USA":{"Ana Godoy":["John Kukral","Sean Clifford","Daniel Fletcher"]},"Value-Add - What Actually Trades in 2026?":{"Adriana Lucchesi":["Aurélie Cohen","Riccardo Abello","Jean-Philippe Küss"],"Julia Bearzotti":["Eduardo Boveda Damborenea","Paul Sacco"],"Juliana Pires":["Alex Mackenzie"],"Kayna Oliveira":["Ariadna Nijssen"],"Mariana Bonucci":["Federico Bianchi"],"Mariana Pereira":["James Halstead"],"Savio Swaby":["Daniel Dejanovic","Matthew McBride"]},"Venture Capital, Proptech & Real Estate Innovation: What Creates Real Value Now?":{"Mariana Bonucci":["Gregory Dewerpe"],"Savio Swaby":["Dvir Wolf"]}};
+
+function toggleWlDrop(e, id) {
+  e.stopPropagation();
+  const drop = document.getElementById(id);
+  const pill = drop.parentElement;
+  const isOpen = drop.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.wl-dropdown.open').forEach(d => {
+    d.classList.remove('open');
+    d.parentElement.classList.remove('active');
+  });
+  if (!isOpen) {
+    drop.classList.add('open');
+    pill.classList.add('active');
+  }
+}
+document.addEventListener('click', () => {
+  document.querySelectorAll('.wl-dropdown.open').forEach(d => {
+    d.classList.remove('open');
+    d.parentElement.classList.remove('active');
+  });
+});
+
+// PERFORMANCE DATA
+const COUNTRY_DATA = [
+  {country:"United Kingdom",confirmed:3,tentative:1},
+  {country:"Czech Republic",confirmed:3,tentative:0},
+  {country:"Poland",confirmed:3,tentative:0},
+  {country:"Germany",confirmed:1,tentative:2},
+  {country:"Portugal",confirmed:2,tentative:0},
+  {country:"Italy",confirmed:2,tentative:0},
+  {country:"Brazil",confirmed:1,tentative:0},
+  {country:"France",confirmed:1,tentative:0},
+  {country:"Norway",confirmed:1,tentative:0},
+  {country:"Denmark",confirmed:1,tentative:0},
+  {country:"USA",confirmed:1,tentative:0},
+  {country:"United Arab Emirates",confirmed:1,tentative:0},
+];
+
+const STAFF_DATA = [
+  {name:"Juliana Pires",   confirmed:11, tentative:1,  wl:28, declined:8},
+  {name:"Ana Godoy",       confirmed:3,  tentative:0,  wl:42, declined:0},
+  {name:"Beatriz Zarattini",confirmed:2, tentative:0,  wl:1,  declined:0},
+  {name:"Laura Sancesario",confirmed:2,  tentative:0,  wl:2,  declined:1},
+  {name:"Savio Swaby",     confirmed:1,  tentative:1,  wl:21, declined:0},
+  {name:"Mariana Pereira", confirmed:1,  tentative:0,  wl:65, declined:1},
+  {name:"Mariana Bonucci", confirmed:0,  tentative:1,  wl:39, declined:2},
+  {name:"Adriana Lucchesi",confirmed:0,  tentative:0,  wl:33, declined:0},
+  {name:"Julia Bearzotti", confirmed:0,  tentative:0,  wl:33, declined:0},
+  {name:"Ludwig Menke",    confirmed:0,  tentative:0,  wl:3,  declined:11},
+  {name:"Kayna Oliveira",  confirmed:0,  tentative:0,  wl:1,  declined:48},
+  {name:"Juliana Pires",   confirmed:0,  tentative:0,  wl:0,  declined:8},
+];
+// Deduplicate by name (Juliana appears twice due to Created/Modified split)
+const _seen = new Set();
+const STAFF_DATA_CLEAN = STAFF_DATA.filter(s => { if(_seen.has(s.name)) return false; _seen.add(s.name); return true; });
+STAFF_DATA_CLEAN.sort((a,b) => b.confirmed !== a.confirmed ? b.confirmed - a.confirmed : (b.tentative - a.tentative));
+
+let countryChartInst = null;
+function renderPerf() {
+  if (countryChartInst) return;
+  const sorted = [...COUNTRY_DATA].sort((a,b) => (b.confirmed+b.tentative)-(a.confirmed+a.tentative));
+  const labels = sorted.map(d => d.country);
+  const conf = sorted.map(d => d.confirmed);
+  const tent = sorted.map(d => d.tentative);
+
+  countryChartInst = new Chart(document.getElementById('countryChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {label:'Confirmed',data:conf,backgroundColor:'#1D9E75',borderRadius:4,stack:'s',barThickness:16},
+        {label:'Tentative',data:tent,backgroundColor:'#EF9F27',borderRadius:4,stack:'s',barThickness:16},
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend:{display:false},
+        tooltip:{
+          callbacks:{
+            label: ctx => ctx.dataset.label + ': ' + ctx.raw
+          }
+        }
+      },
+      scales: {
+        x: {stacked:true,min:0,max:6,ticks:{stepSize:1,font:{size:11},color:'#9b9b97'},grid:{color:'rgba(0,0,0,0.05)'},border:{display:false}},
+        y: {stacked:true,ticks:{font:{size:12},color:'#4a4a47'},grid:{display:false},border:{display:false}}
+      }
+    }
+  });
+
+  // Staff ranking — improved visual
+  const maxConf = Math.max(...STAFF_DATA_CLEAN.map(s => s.confirmed+s.tentative), 1);
+  let html = '';
+  STAFF_DATA_CLEAN.forEach((s, i) => {
+    const prog = s.confirmed + s.tentative;
+    const barW = prog > 0 ? Math.round(prog / maxConf * 100) : 0;
+    const wlCount = s.wl || 0;
+    const decCount = s.declined || 0;
+    html += `<div class="sr-row">
+      <div class="sr-rank">${i+1}</div>
+      <div class="sr-main">
+        <div class="sr-name-row">
+          <span class="sr-name">${s.name}</span>
+          <div class="sr-badges">
+            ${s.confirmed > 0 ? `<span class="sr-badge sr-conf">${s.confirmed} conf</span>` : ''}
+            ${s.tentative > 0 ? `<span class="sr-badge sr-tent">${s.tentative} tent</span>` : ''}
+            ${wlCount > 0 ? `<span class="sr-badge sr-wl">${wlCount} WL</span>` : ''}
+            ${decCount > 0 ? `<span class="sr-badge sr-dec">${decCount} declined</span>` : ''}
+          </div>
+        </div>
+        <div class="sr-bar-track">
+          <div class="sr-bar-conf" style="width:${Math.round(s.confirmed/maxConf*100)}%"></div>
+          <div class="sr-bar-tent" style="width:${Math.round(s.tentative/maxConf*100)}%"></div>
+        </div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('staff-ranking').innerHTML = html;
+}
+
+// Countdown pill
+(function(){
+  const deadline = new Date('2026-07-03');
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diff = Math.round((deadline - today) / 86400000);
+  const el = document.getElementById('cd-days');
+  if (el) el.textContent = diff > 0 ? diff : 0;
+  const start = new Date('2026-01-30');
+  const span = (deadline - start) / 86400000;
+  const elapsed = (today - start) / 86400000;
+  const fill = document.getElementById('cd-fill');
+  if (fill) fill.style.width = Math.min(100, Math.max(0, Math.round(elapsed/span*100))) + '%';
+})();
+
+// INIT
+const streamsArr = [...new Set(SESSIONS.map(s => s.stream))];
+const selStream = document.getElementById('f-stream');
+streamsArr.forEach(st => { const o = document.createElement('option'); o.value = st; o.textContent = st; selStream.appendChild(o); });
+
+const prodArr = [...new Set(SESSIONS.map(s => s.producer).filter(Boolean))].sort();
+const selProd = document.getElementById('f-producer');
+prodArr.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; selProd.appendChild(o); });
+
+
+const now = new Date();
+const dtfmt = new Intl.DateTimeFormat('pt-BR', {day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+const ds = dtfmt.format(now);
+// date-now element removed
+document.getElementById('footer-date').textContent = 'Generated on ' + ds;
+
+render();
+</script>
+</body>
+</html>
