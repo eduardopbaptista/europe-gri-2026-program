@@ -177,6 +177,98 @@ select{font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 10px;border:.
 .cd-track-labels{display:flex;justify-content:space-between;font-size:10px;color:#92651A;margin-bottom:4px;opacity:.75}
 .cd-track{height:5px;background:rgba(245,194,107,.3);border-radius:3px;overflow:hidden}
 .cd-fill{height:100%;background:#F59E0B;border-radius:3px;transition:width .5s}
+
+/* ── MAIN DATA TAB ── */
+.md-wrap *{box-sizing:border-box;margin:0;padding:0}
+.md-wrap body{font-family:'Georgia',serif}
+.md-wrap .page{background:#fff;color:#1a1a1a;max-width:900px;padding:0 0 60px}
+.md-wrap .hero{background:#1a1a2e;padding:28px 32px 24px;border-radius:12px;margin-bottom:32px;position:relative;overflow:hidden}
+.md-wrap .hero::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.md-wrap .hero-eyebrow{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8899bb;font-family:'Georgia',serif;margin-bottom:10px}
+.md-wrap .hero-title{font-size:26px;font-weight:400;color:#fff;letter-spacing:-0.02em;margin-bottom:6px}
+.md-wrap .hero-sub{font-size:13px;color:#8899bb;margin-bottom:20px;display:flex;gap:16px}
+.md-wrap .hero-sub span{display:flex;align-items:center;gap:5px}
+.md-wrap .hero-links{display:flex;gap:8px;flex-wrap:wrap}
+.md-wrap .quick-link{font-size:12px;padding:6px 12px;border-radius:6px;background:rgba(255,255,255,0.08);color:#ccd6f0;border:0.5px solid rgba(255,255,255,0.12);cursor:pointer;display:flex;align-items:center;gap:5px;text-decoration:none;transition:background 0.15s}
+.md-wrap .quick-link:hover{background:rgba(255,255,255,0.14)}
+.md-wrap .sec-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#aaa;font-family:'Georgia',serif;margin:0 0 12px;font-style:italic}
+.md-wrap .section{margin-bottom:36px}
+.md-wrap .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:36px}
+.md-wrap .kpi{background:#f8f8f6;border:0.5px solid #e8e8e4;border-radius:10px;padding:14px 16px}
+.md-wrap .kpi-label{font-size:11px;color:#999;margin-bottom:6px;font-family:'Georgia',serif}
+.md-wrap .kpi-val{font-size:22px;color:#1a1a1a;letter-spacing:-0.03em;margin-bottom:8px}
+.md-wrap .prog-bar-wrap{height:4px;background:#e8e8e4;border-radius:2px;overflow:hidden}
+.md-wrap .prog-bar{height:4px;border-radius:2px;background:#1a1a2e}
+.md-wrap .kpi-sub{font-size:11px;color:#aaa;margin-top:6px;display:flex;justify-content:space-between}
+.md-wrap .kpi-sub .tag-pill{font-size:10px;padding:2px 7px;border-radius:10px;background:#f0f0ec;color:#888}
+.md-wrap .kpi-sub .tag-red{background:#fdf0ee;color:#c05a3a}
+.md-wrap .deadline-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.md-wrap .dl-card{border:0.5px solid #e8e8e4;border-radius:10px;padding:12px 14px;position:relative;overflow:hidden}
+.md-wrap .dl-card.urgent{border-color:#e8d0b0;background:#fffcf5}
+.md-wrap .dl-card.urgent::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#d4920a}
+.md-wrap .dl-date{font-size:18px;letter-spacing:-0.03em;color:#1a1a1a;margin-bottom:3px}
+.md-wrap .dl-month{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+.md-wrap .dl-desc{font-size:12px;color:#555;line-height:1.5}
+.md-wrap .dl-badge{font-size:10px;padding:2px 7px;border-radius:10px;display:inline-block;margin-top:8px}
+.md-wrap .badge-urgent{background:#fdf0ee;color:#c05a3a}
+.md-wrap .badge-ok{background:#f0f5ea;color:#5a7a3a}
+.md-wrap .stream-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.md-wrap .stab{font-size:11px;padding:5px 12px;border-radius:20px;border:0.5px solid #e0e0da;cursor:pointer;color:#666;transition:all 0.15s}
+.md-wrap .stab.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
+.md-wrap .session-table{width:100%;border-collapse:collapse}
+.md-wrap .session-table th{font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#bbb;font-weight:400;padding:8px 10px;border-bottom:0.5px solid #e8e8e4;text-align:left}
+.md-wrap .session-table td{font-size:12px;padding:9px 10px;border-bottom:0.5px solid #f0f0ec;color:#333;vertical-align:middle}
+.md-wrap .session-table tr:hover td{background:#fafaf8}
+.md-wrap .sess-title{font-weight:500;color:#1a1a1a;font-size:13px}
+.md-wrap .sess-strategy{font-size:10px;color:#aaa;margin-top:1px}
+.md-wrap .ptype{font-size:10px;padding:2px 7px;border-radius:10px;display:inline-block;white-space:nowrap}
+.md-wrap .pt-ret{background:#eef3fb;color:#2a5a9a}
+.md-wrap .pt-exp{background:#f0f5ea;color:#3a6a2a}
+.md-wrap .pt-spo{background:#fdf5e8;color:#8a5a0a}
+.md-wrap .pt-gue{background:#faeef5;color:#8a2a5a}
+.md-wrap .mini-prog{width:80px;height:5px;background:#f0f0ec;border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:5px}
+.md-wrap .mini-prog-fill{height:5px;border-radius:3px;background:#1a1a2e}
+.md-wrap .prog-0{background:#f0f0ec}
+.md-wrap .prog-low{background:#e8c5b0}
+.md-wrap .prog-mid{background:#c5d8a0}
+.md-wrap .prog-high{background:#7ab05a}
+.md-wrap .prog-num{font-size:11px;color:#888}
+.md-wrap .dept-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.md-wrap .dept-card{border:0.5px solid #e8e8e4;border-radius:10px;padding:14px 16px}
+.md-wrap .dept-name{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#aaa;margin-bottom:4px}
+.md-wrap .dept-val{font-size:20px;letter-spacing:-0.03em;color:#1a1a1a;margin-bottom:10px}
+.md-wrap .dept-prog{height:4px;background:#e8e8e4;border-radius:2px;overflow:hidden;margin-bottom:6px}
+.md-wrap .dept-prog-fill{height:4px;border-radius:2px}
+.md-wrap .dept-csm .dept-prog-fill{background:#2a5a9a}
+.md-wrap .dept-prod .dept-prog-fill{background:#5a7a3a}
+.md-wrap .dept-com .dept-prog-fill{background:#8a5a0a}
+.md-wrap .dept-bottom{font-size:11px;color:#bbb;display:flex;justify-content:space-between}
+.md-wrap .companies-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.md-wrap .co-block{border:0.5px solid #e8e8e4;border-radius:10px;padding:14px 16px}
+.md-wrap .co-title{font-size:12px;font-weight:500;color:#333;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.md-wrap .co-stat{font-size:11px;padding:2px 7px;border-radius:10px;background:#f8f8f6;color:#888}
+.md-wrap .co-list{display:flex;flex-wrap:wrap;gap:5px}
+.md-wrap .co-tag{font-size:10px;padding:3px 8px;border-radius:6px;border:0.5px solid #e0e0da;color:#555}
+.md-wrap .co-tag.member{background:#f0f5ea;border-color:#c0d8a0;color:#3a5a2a}
+.md-wrap .co-tag.non-member{background:#fdf0ee;border-color:#f0c0b0;color:#7a3a2a}
+.md-wrap .resp-wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.md-wrap .resp-card{border:0.5px solid #e8e8e4;border-radius:10px;padding:10px 12px;text-align:center}
+.md-wrap .resp-avatar{width:36px;height:36px;border-radius:50%;background:#1a1a2e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;margin:0 auto 6px}
+.md-wrap .resp-name{font-size:11px;color:#555;margin-bottom:2px}
+.md-wrap .resp-count{font-size:18px;letter-spacing:-0.03em;color:#1a1a1a}
+.md-wrap .resp-label{font-size:10px;color:#bbb}
+.md-wrap .divider{border:none;border-top:0.5px solid #e8e8e4;margin:32px 0}
+.md-wrap { font-family: 'DM Sans', sans-serif; background: transparent; }
+.md-wrap .page { max-width: 100%; padding: 0 0 40px; }
+
+.md-wrap .md-sess-row { cursor: pointer; }
+.md-wrap .md-sess-row:hover td { background: #f0f5ff !important; }
+
+.wl-chart-wrap{padding:28px 36px 36px}
+.wl-chart-wrap h2{font-size:15px;font-weight:600;margin-bottom:3px}
+.wl-legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px;margin-top:8px}
+.wl-leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
+.wl-leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -206,13 +298,186 @@ select{font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 10px;border:.
 </div>
 
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('icp',this)">ICP Analysis</div>
+  <div class="tab active" onclick="switchTab('main',this)">Main Data</div>
+  <div class="tab" onclick="switchTab('icp',this)">ICP Analysis</div>
   <div class="tab" onclick="switchTab('chart',this)">Program Confirmation</div>
   <div class="tab" onclick="switchTab('companies',this)">Key Accounts</div>
   <div class="tab" onclick="switchTab('perf',this)">Performance</div>
+  <div class="tab" onclick="switchTab('wl',this)">Wishlist</div>
 </div>
 
-<div class="tab-content active" id="tab-icp">
+
+<div class="tab-content active" id="tab-main">
+  <div style="padding: 20px 28px 0">
+    <div class="md-wrap">
+      <div class="page">
+
+        <!-- HERO -->
+        <div class="hero">
+          <div class="hero-eyebrow">GRI Institute · Europe Week 2026</div>
+          <div class="hero-title">🇪🇺 Europe GRI 2026 — Summer Edition</div>
+          <div class="hero-sub">
+            <span>📍 InterContinental Paris Le Grand Hotel</span>
+            <span>📅 9–10 September 2026</span>
+            <span>🎯 800 participants</span>
+          </div>
+          <div class="hero-links">
+            <a class="quick-link" href="https://www.griinstitute.org/realestate/event/europe-gri-2026-summer-edition_5247" target="_blank">🌐 Event Website</a>
+            <a class="quick-link" href="https://www.notion.so/Event-Briefing-Europe-Summer-26-2f791d4f92d98031b3bfe13c448ef813" target="_blank">📋 Event Briefing</a>
+          </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="section">
+          <div class="sec-label">Current status — Co-chair Program</div>
+          <div class="kpi-grid">
+            <div class="kpi">
+              <div class="kpi-label">Total co-chairs allocated</div>
+              <div class="kpi-val">32 <span style="font-size:14px;color:#bbb">/ 232</span></div>
+              <div class="prog-bar-wrap"><div class="prog-bar" style="width:14%"></div></div>
+              <div class="kpi-sub"><span>23 confirmed · 9 tentative</span><span class="tag-red tag-pill">14%</span></div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Players in Wishlist</div>
+              <div class="kpi-val">288 <span style="font-size:14px;color:#bbb">/ ~1,176</span></div>
+              <div class="prog-bar-wrap"><div class="prog-bar" style="width:23.9%"></div></div>
+              <div class="kpi-sub"><span>CSM 235 · Prod 5 · Com 2</span><span class="tag-pill" style="background:#f0f5ea;color:#5a7a3a">24%</span></div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Declined</div>
+              <div class="kpi-val">71</div>
+              <div class="prog-bar-wrap"><div class="prog-bar" style="width:100%;background:#e8c5b0"></div></div>
+              <div class="kpi-sub"><span>Across all sessions</span><span class="tag-red tag-pill">tracking</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEADLINES -->
+        <div class="section">
+          <div class="sec-label">Upcoming deadlines</div>
+          <div class="deadline-row">
+            <div class="dl-card urgent">
+              <div class="dl-date">10</div>
+              <div class="dl-month">Jun 2026</div>
+              <div class="dl-desc">Calibration Meeting — Tier 2</div>
+              <div class="dl-badge badge-urgent">⚠ Upcoming</div>
+            </div>
+            <div class="dl-card">
+              <div class="dl-date">12</div>
+              <div class="dl-month">Jun 2026</div>
+              <div class="dl-desc">Deadline to clean Tier 1</div>
+              <div class="dl-badge badge-ok">Soon</div>
+            </div>
+            <div class="dl-card">
+              <div class="dl-date">03</div>
+              <div class="dl-month">Jul 2026</div>
+              <div class="dl-desc">Tentative Programme deadline</div>
+              <div class="dl-badge badge-ok">~7 weeks</div>
+            </div>
+            <div class="dl-card">
+              <div class="dl-date">17</div>
+              <div class="dl-month">Jul 2026</div>
+              <div class="dl-desc">Confirmed Programme deadline</div>
+              <div class="dl-badge badge-ok">~9 weeks</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- CO-CHAIRS POR DEPARTAMENTO -->
+        <div class="section">
+          <div class="sec-label">Co-chair targets by department</div>
+          <div class="dept-wrap">
+            <div class="dept-card dept-csm">
+              <div class="dept-name">CSM</div>
+              <div class="dept-val">28 <span style="font-size:13px;color:#bbb">/ 143</span></div>
+              <div class="dept-prog"><div class="dept-prog-fill" style="width:13.3%"></div></div>
+              <div class="dept-bottom"><span>20% achieved</span><span>WL: 235 players/span></div>
+            </div>
+            <div class="dept-card dept-prod">
+              <div class="dept-name">Production</div>
+              <div class="dept-val">2 <span style="font-size:13px;color:#bbb">/ 36</span></div>
+              <div class="dept-prog"><div class="dept-prog-fill" style="width:5.6%"></div></div>
+              <div class="dept-bottom"><span>6% achieved</span><span>WL: 6 players</span></div>
+            </div>
+            <div class="dept-card dept-com">
+              <div class="dept-name">Commercial</div>
+              <div class="dept-val">2 <span style="font-size:13px;color:#bbb">/ 53</span></div>
+              <div class="dept-prog"><div class="dept-prog-fill" style="width:3.8%"></div></div>
+              <div class="dept-bottom"><span>4% achieved</span><span>WL: 3 players</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESPONSÁVEIS -->
+        <div class="section">
+          <div class="sec-label">Responsible by stream (production)</div>
+          <div class="resp-wrap">
+            <div class="resp-card">
+              <div class="resp-avatar">LM</div>
+              <div class="resp-name">Ludwig Menke</div>
+              <div class="resp-count">16</div>
+              <div class="resp-label">sessions</div>
+            </div>
+            <div class="resp-card">
+              <div class="resp-avatar">GP</div>
+              <div class="resp-name">Giovanna Paganini</div>
+              <div class="resp-count">11</div>
+              <div class="resp-label">sessions</div>
+            </div>
+            <div class="resp-card">
+              <div class="resp-avatar">JG</div>
+              <div class="resp-name">Julien Geier</div>
+              <div class="resp-count">13</div>
+              <div class="resp-label">sessions</div>
+            </div>
+            <div class="resp-card">
+              <div class="resp-avatar">KO</div>
+              <div class="resp-name">Kaynã de Oliveira</div>
+              <div class="resp-count">9</div>
+              <div class="resp-label">sessions</div>
+            </div>
+            <div class="resp-card">
+              <div class="resp-avatar">BZ</div>
+              <div class="resp-name">Beatriz Zarattini</div>
+              <div class="resp-count">2</div>
+              <div class="resp-label">sessions</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- SESSÕES POR STREAM -->
+        <div class="section">
+          <div class="sec-label">Sessions by stream — co-chair tracker</div>
+          <div class="stream-tabs" id="md-stream-tabs">
+            <div class="stab active" data-stream="Investment">Investment (8)</div>
+            <div class="stab" data-stream="Financing">Financing (5)</div>
+            <div class="stab" data-stream="Commercial">Commercial (6)</div>
+            <div class="stab" data-stream="Living">Living (6)</div>
+            <div class="stab" data-stream="Hospitality">Hospitality (5)</div>
+            <div class="stab" data-stream="France">France (4)</div>
+            <div class="stab" data-stream="Countries">Countries (9)</div>
+            <div class="stab" data-stream="Future Trends">Future Trends (5)</div>
+            <div class="stab" data-stream="Openings">Openings (3)</div>
+          </div>
+          <div id="md-session-table-wrap">
+            <!-- filled by JS -->
+          </div>
+          <div style="font-size:11px;color:#bbb;margin-top:10px;padding-left:4px" id="md-stream-hint">
+            Click on a session row to open it in the ICP Analysis tab →
+          </div>
+        </div>
+
+      </div><!-- .page -->
+    </div><!-- .md-wrap -->
+  </div>
+</div>
+
+
+<div class="tab-content" id="tab-icp">
   <div class="filters">
     <div style="display:flex;align-items:center;gap:6px">
       <label>Stream</label>
@@ -290,13 +555,23 @@ select{font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 10px;border:.
   </div>
 </div>
 
+<div class="tab-content" id="tab-wl">
+  <div class="wl-chart-wrap">
+    <h2>Wishlist — Pipeline by Session</h2>
+    <div class="wl-legend" id="wl-legend"></div>
+    <div style="position:relative;width:100%;height:1560px">
+      <canvas id="wlChart" role="img" aria-label="Stacked bar chart of wishlist players per session by outreach status"></canvas>
+    </div>
+  </div>
+</div>
+
 <div class="footer">
   <span>GRI Institute · Europe GRI 2026 Summer Edition</span>
   <span id="footer-date"></span>
 </div>
 </div>
 <script>
-const SESSIONS = [
+/*%%SESSIONS_START%%*/const SESSIONS = [
   {
     stream: "Openings",
     title: "Opening Day 1 — LP Mandate 2027",
@@ -792,7 +1067,7 @@ const SESSIONS = [
     allocated: [],
     notes: "Sessão Sponsor-driven. Perfis de COO/Ops de grandes plataformas ou founders de automação/robótica em RE."
   }
-];
+];/*%%SESSIONS_END%%*/
 
 // WISHLIST DATA (keyed by session title, fuzzy-matched in JS)
 const WL_RAW = {
@@ -875,37 +1150,37 @@ const STATUS_LABELS = {'on-track':'Target met','at-risk':'Partial','behind':'Bel
 const STATUS_COLORS = {'on-track':'#1D9E75','at-risk':'#EF9F27','behind':'#E24B4A','no-data':'#b0b0aa','no-target':'#b0b0aa'};
 
 // CHART DATA
-const CHART_DATA = [
+/*%%CHART_DATA_START%%*/const CHART_DATA = [
   {title:"Opening Day 1 (LPs)",confirmed:2,tentative:0,target:4},
-  {title:"Opening Day 2 (Investment)",confirmed:0,tentative:0,target:4},
+  {title:"Opening Day 2 (Investment)",confirmed:2,tentative:0,target:4},
   {title:"Closing (AI/Trends)",confirmed:0,tentative:0,target:1},
-  {title:"Core",confirmed:0,tentative:0,target:5},
-  {title:"Value-Add",confirmed:2,tentative:0,target:6},
+  {title:"Core",confirmed:0,tentative:1,target:5},
+  {title:"Value-Add",confirmed:3,tentative:2,target:6},
   {title:"Club Deals / JVs",confirmed:1,tentative:0,target:6},
   {title:"Buyers x Sellers",confirmed:1,tentative:0,target:6},
-  {title:"Exit Optionality",confirmed:0,tentative:0,target:5},
+  {title:"Exit Optionality",confirmed:0,tentative:1,target:5},
   {title:"Portfolio Trades x Single Assets",confirmed:0,tentative:1,target:6},
   {title:"Secondaries Market",confirmed:0,tentative:0,target:5},
   {title:"Dry Powder",confirmed:0,tentative:0,target:6},
-  {title:"European Debt Map",confirmed:0,tentative:0,target:6},
+  {title:"European Debt Map",confirmed:1,tentative:0,target:6},
   {title:"Refinancing the Wall",confirmed:0,tentative:0,target:6},
   {title:"Private Credit x Banks",confirmed:1,tentative:0,target:6},
   {title:"Mid-market Financing",confirmed:1,tentative:0,target:5},
   {title:"Capital Stack",confirmed:1,tentative:0,target:6},
-  {title:"Office 2.0",confirmed:1,tentative:0,target:6},
-  {title:"Retail Polarisation",confirmed:2,tentative:0,target:6},
+  {title:"Office 2.0",confirmed:0,tentative:0,target:6},
+  {title:"Retail Polarisation",confirmed:2,tentative:1,target:6},
   {title:"Logistics Pan-European",confirmed:1,tentative:0,target:6},
   {title:"Logistics Local",confirmed:1,tentative:0,target:6},
   {title:"Conversion & Repositioning",confirmed:0,tentative:0,target:5},
-  {title:"Data Centers",confirmed:0,tentative:0,target:6},
-  {title:"Living as Defensive Play",confirmed:0,tentative:0,target:6},
+  {title:"Data Centers",confirmed:1,tentative:0,target:6},
+  {title:"Living as Defensive Play",confirmed:1,tentative:2,target:6},
   {title:"Affordability & Regulation",confirmed:0,tentative:0,target:4},
   {title:"PBSA",confirmed:0,tentative:0,target:6},
-  {title:"Flex & Co-Living",confirmed:1,tentative:1,target:6},
+  {title:"Flex & Co-Living",confirmed:1,tentative:2,target:6},
   {title:"Senior Living",confirmed:0,tentative:0,target:5},
-  {title:"Build-to-Rent",confirmed:1,tentative:0,target:6},
-  {title:"Hospitality Comeback",confirmed:0,tentative:0,target:6},
-  {title:"Hospitality Risk-Adjusted",confirmed:0,tentative:0,target:6},
+  {title:"Build-to-Rent",confirmed:2,tentative:0,target:6},
+  {title:"Hospitality Comeback",confirmed:1,tentative:0,target:6},
+  {title:"Hospitality Risk-Adjusted",confirmed:1,tentative:0,target:6},
   {title:"Branded Residences",confirmed:2,tentative:0,target:4},
   {title:"Lease / Mgmt / Franchise",confirmed:0,tentative:0,target:6},
   {title:"Platform Plays x Single-Asset",confirmed:0,tentative:0,target:6},
@@ -918,15 +1193,15 @@ const CHART_DATA = [
   {title:"Spain",confirmed:0,tentative:0,target:3},
   {title:"Italy",confirmed:0,tentative:0,target:3},
   {title:"Portugal",confirmed:0,tentative:0,target:3},
-  {title:"CEE",confirmed:0,tentative:1,target:3},
+  {title:"CEE",confirmed:0,tentative:0,target:3},
   {title:"GCC",confirmed:0,tentative:0,target:3},
-  {title:"Nordics",confirmed:2,tentative:0,target:null},
+  {title:"Nordics",confirmed:0,tentative:0,target:null},
   {title:"CapEx, ESG & Obsolescence",confirmed:0,tentative:0,target:4},
-  {title:"Data & Underwriting",confirmed:0,tentative:0,target:4},
+  {title:"Data & Underwriting",confirmed:0,tentative:1,target:4},
   {title:"Demographics",confirmed:0,tentative:0,target:4},
   {title:"Venture Capital / Proptech",confirmed:0,tentative:0,target:4},
-  {title:"Smart Operations",confirmed:0,tentative:0,target:4},
-];
+  {title:"Smart Operations",confirmed:0,tentative:0,target:4}
+]/*%%CHART_DATA_END%%*/
 
 // COMPANIES DATA
 const TARGET_COMPANIES = [
@@ -1039,6 +1314,7 @@ function switchTab(id, el) {
   if (id === 'chart') renderChart();
   if (id === 'companies') renderCompanies();
   if (id === 'perf') renderPerf();
+  if (id === 'wl') renderWLChart();
 }
 
 // CHART
@@ -1335,35 +1611,51 @@ document.addEventListener('click', () => {
 });
 
 // PERFORMANCE DATA
-const COUNTRY_DATA = [
-  {country:"United Kingdom",confirmed:3,tentative:1},
-  {country:"Czech Republic",confirmed:3,tentative:0},
+/*%%COUNTRY_DATA_START%%*/const COUNTRY_DATA = [
+  {country:"United Kingdom",confirmed:4,tentative:1},
+  {country:"Spain",confirmed:1,tentative:4},
+  {country:"Italy",confirmed:2,tentative:2},
   {country:"Poland",confirmed:3,tentative:0},
   {country:"Germany",confirmed:1,tentative:2},
   {country:"Portugal",confirmed:2,tentative:0},
-  {country:"Italy",confirmed:2,tentative:0},
-  {country:"Brazil",confirmed:1,tentative:0},
+  {country:"Czech Republic",confirmed:2,tentative:0},
   {country:"France",confirmed:1,tentative:0},
-  {country:"Norway",confirmed:1,tentative:0},
-  {country:"Denmark",confirmed:1,tentative:0},
-  {country:"USA",confirmed:1,tentative:0},
   {country:"United Arab Emirates",confirmed:1,tentative:0},
-];
+  {country:"USA",confirmed:1,tentative:0},
+  {country:"Hungary",confirmed:1,tentative:0},
+  {country:"Brazil",confirmed:1,tentative:0},
+  {country:"Cyprus",confirmed:1,tentative:0},
+  {country:"Denmark",confirmed:1,tentative:0},
+  {country:"Norway",confirmed:1,tentative:0},
+  {country:"Bulgaria",confirmed:0,tentative:0},
+  {country:"Netherlands",confirmed:0,tentative:0},
+  {country:"Austria",confirmed:0,tentative:0},
+  {country:"Luxembourg",confirmed:0,tentative:0},
+  {country:"Belgium",confirmed:0,tentative:0},
+  {country:"Sweden",confirmed:0,tentative:0},
+  {country:"Switzerland",confirmed:0,tentative:0},
+  {country:"Singapore",confirmed:0,tentative:0},
+  {country:"Mexico",confirmed:0,tentative:0}
+]/*%%COUNTRY_DATA_END%%*/
 
-const STAFF_DATA = [
-  {name:"Juliana Pires",   confirmed:11, tentative:1,  wl:28, declined:8},
-  {name:"Ana Godoy",       confirmed:3,  tentative:0,  wl:42, declined:0},
-  {name:"Beatriz Zarattini",confirmed:2, tentative:0,  wl:1,  declined:0},
-  {name:"Laura Sancesario",confirmed:2,  tentative:0,  wl:2,  declined:1},
-  {name:"Savio Swaby",     confirmed:1,  tentative:1,  wl:21, declined:0},
-  {name:"Mariana Pereira", confirmed:1,  tentative:0,  wl:65, declined:1},
-  {name:"Mariana Bonucci", confirmed:0,  tentative:1,  wl:39, declined:2},
-  {name:"Adriana Lucchesi",confirmed:0,  tentative:0,  wl:33, declined:0},
-  {name:"Julia Bearzotti", confirmed:0,  tentative:0,  wl:33, declined:0},
-  {name:"Ludwig Menke",    confirmed:0,  tentative:0,  wl:3,  declined:11},
-  {name:"Kayna Oliveira",  confirmed:0,  tentative:0,  wl:1,  declined:48},
-  {name:"Juliana Pires",   confirmed:0,  tentative:0,  wl:0,  declined:8},
-];
+/*%%STAFF_DATA_START%%*/const STAFF_DATA = [
+  {name:"Juliana Pires",confirmed:13,tentative:1,wl:18,declined:10},
+  {name:"Ana Godoy",confirmed:3,tentative:0,wl:42,declined:0},
+  {name:"Savio Swaby",confirmed:1,tentative:1,wl:20,declined:0},
+  {name:"Mariana Pereira",confirmed:1,tentative:0,wl:60,declined:1},
+  {name:"Julia Bearzotti",confirmed:1,tentative:6,wl:27,declined:2},
+  {name:"Laura Sancesario",confirmed:1,tentative:0,wl:1,declined:1},
+  {name:"Ludwig Menke",confirmed:0,tentative:0,wl:3,declined:10},
+  {name:"Kayna Oliveira",confirmed:0,tentative:0,wl:0,declined:42},
+  {name:"Mariana Bonucci",confirmed:0,tentative:1,wl:37,declined:2},
+  {name:"Giovanna Paganini",confirmed:0,tentative:0,wl:1,declined:0},
+  {name:"Julien Geier",confirmed:0,tentative:0,wl:0,declined:0},
+  {name:"Victor Heimann",confirmed:0,tentative:0,wl:1,declined:0},
+  {name:"Gabriela Furtado Aranda",confirmed:0,tentative:0,wl:1,declined:0},
+  {name:"Beatriz Zarattini",confirmed:0,tentative:0,wl:1,declined:0},
+  {name:"Adriana Lucchesi",confirmed:0,tentative:0,wl:31,declined:0},
+  {name:"Mariana Clemente",confirmed:0,tentative:0,wl:1,declined:0}
+]/*%%STAFF_DATA_END%%*/
 // Deduplicate by name (Juliana appears twice due to Created/Modified split)
 const _seen = new Set();
 const STAFF_DATA_CLEAN = STAFF_DATA.filter(s => { if(_seen.has(s.name)) return false; _seen.add(s.name); return true; });
@@ -1448,6 +1740,318 @@ function renderPerf() {
   const fill = document.getElementById('cd-fill');
   if (fill) fill.style.width = Math.min(100, Math.max(0, Math.round(elapsed/span*100))) + '%';
 })();
+
+
+// Main Data stream tabs (decorative filter in mockup)
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('stab')) {
+    const parent = e.target.closest('.stream-tabs');
+    if (parent) {
+      parent.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
+      e.target.classList.add('active');
+    }
+  }
+});
+
+
+// ── MAIN DATA: Stream session table ──────────────────────────────────────────
+const MD_SESSIONS = {
+  Investment: [
+    {title:"Core",                       conf:0, tent:0, target:5,  wl:7,  type:"Expansion",  resp:"Ludwig M."},
+    {title:"Value-Add",                  conf:2, tent:0, target:6,  wl:11, type:"Retention",  resp:"Ludwig M."},
+    {title:"Club Deals, JVs & Co-Invests",conf:1,tent:0, target:6,  wl:6,  type:"Retention",  resp:"Ludwig M."},
+    {title:"Buyers x Sellers",           conf:1, tent:0, target:6,  wl:7,  type:"Expansion",  resp:"Ludwig M."},
+    {title:"Exit Optionality",           conf:0, tent:1, target:5,  wl:9,  type:"Expansion",  resp:"Ludwig M."},
+    {title:"Portfolio Trades x Singles", conf:0, tent:1, target:6,  wl:4,  type:"Expansion",  resp:"Ludwig M."},
+    {title:"Secondaries Market",         conf:0, tent:0, target:5,  wl:6,  type:"Retention",  resp:"Ludwig M."},
+    {title:"Dry Powder",                 conf:0, tent:0, target:6,  wl:9,  type:"Retention",  resp:"Ludwig M."},
+  ],
+  Financing: [
+    {title:"European Debt Map",          conf:0, tent:0, target:6,  wl:8,  type:"Retention",  resp:"Ludwig M."},
+    {title:"Refinancing the Wall",       conf:0, tent:0, target:6,  wl:9,  type:"Retention",  resp:"Ludwig M."},
+    {title:"Private Credit x Banks",     conf:1, tent:0, target:6,  wl:10, type:"Retention",  resp:"Ludwig M."},
+    {title:"Mid-market Financing",       conf:1, tent:0, target:5,  wl:11, type:"Expansion",  resp:"Ludwig M."},
+    {title:"Capital Stack",              conf:1, tent:0, target:6,  wl:10, type:"Retention",  resp:"Ludwig M."},
+  ],
+  Commercial: [
+    {title:"Office 2.0",                 conf:0, tent:0, target:6,  wl:12, type:"Expansion",  resp:"Julien G."},
+    {title:"Retail Polarisation",        conf:2, tent:1, target:6,  wl:11, type:"Expansion",  resp:"Julien G."},
+    {title:"Logistics Pan-European",     conf:1, tent:0, target:6,  wl:9,  type:"Expansion",  resp:"Julien G."},
+    {title:"Logistics Local",            conf:1, tent:0, target:6,  wl:7,  type:"Expansion",  resp:"Julien G."},
+    {title:"Conversions & Repositioning",conf:0, tent:0, target:5,  wl:13, type:"Expansion",  resp:"Julien G."},
+    {title:"Data Centers",               conf:1, tent:0, target:6,  wl:14, type:"Guest",      resp:"Julien G."},
+  ],
+  Living: [
+    {title:"Living as Defensive Play",   conf:0, tent:0, target:6,  wl:6,  type:"Retention",  resp:"Ludwig M."},
+    {title:"Affordability & Regulation", conf:0, tent:0, target:4,  wl:9,  type:"Guest",      resp:"Ludwig M."},
+    {title:"PBSA",                       conf:0, tent:0, target:6,  wl:11, type:"Expansion",  resp:"Ludwig M."},
+    {title:"Flex & Co-Living",           conf:1, tent:1, target:6,  wl:8,  type:"Retention",  resp:"Kaynã O."},
+    {title:"Senior Living",              conf:0, tent:0, target:5,  wl:7,  type:"Expansion",  resp:"Julien G."},
+    {title:"Build-to-Rent",              conf:2, tent:0, target:6,  wl:6,  type:"Retention",  resp:"Ludwig M."},
+  ],
+  Hospitality: [
+    {title:"Hospitality's Comeback",     conf:0, tent:0, target:6,  wl:4,  type:"Retention",  resp:"Giovanna P."},
+    {title:"Hospitality Risk-Adjusted",  conf:0, tent:0, target:6,  wl:6,  type:"Retention",  resp:"Giovanna P."},
+    {title:"Branded Residences",         conf:2, tent:0, target:4,  wl:2,  type:"Expansion",  resp:"Kaynã O."},
+    {title:"Lease / Mgmt / Franchise",   conf:0, tent:0, target:6,  wl:6,  type:"Retention",  resp:"Giovanna P."},
+    {title:"Platform Plays x Singles",   conf:0, tent:0, target:6,  wl:6,  type:"Expansion",  resp:"Giovanna P."},
+  ],
+  France: [
+    {title:"Discussion 1 — Investissement & Risque", conf:0, tent:0, target:3, wl:1, type:"Retention", resp:"Ludwig M."},
+    {title:"Discussion 2 — Financement",             conf:0, tent:0, target:5, wl:4, type:"Retention", resp:"Ludwig M."},
+    {title:"Discussion 3 — Immobilier Tertiaire",    conf:0, tent:0, target:5, wl:1, type:"Retention", resp:"Ludwig M."},
+    {title:"Discussion 4 — Living France",           conf:0, tent:0, target:5, wl:1, type:"Retention", resp:"Ludwig M."},
+  ],
+  Countries: [
+    {title:"UK",       conf:0, tent:0, target:3, wl:0,  type:"Expansion", resp:"Ludwig M."},
+    {title:"Germany",  conf:0, tent:0, target:3, wl:0,  type:"Retention", resp:"Julien G."},
+    {title:"Spain",    conf:0, tent:0, target:3, wl:0,  type:"Retention", resp:"Kaynã O."},
+    {title:"Italy",    conf:0, tent:0, target:3, wl:0,  type:"Retention", resp:"Giovanna P."},
+    {title:"Portugal", conf:0, tent:0, target:3, wl:0,  type:"Retention", resp:"Kaynã O."},
+    {title:"CEE",      conf:0, tent:1, target:3, wl:0,  type:"Retention", resp:"Julien G."},
+    {title:"GCC",      conf:0, tent:0, target:3, wl:8,  type:"Retention", resp:"Beatriz Z."},
+    {title:"Nordics",  conf:2, tent:0, target:null, wl:2, type:"Retention", resp:"Ludwig M."},
+    {title:"USA",      conf:0, tent:0, target:null, wl:3, type:"Retention", resp:"—"},
+  ],
+  "Future Trends": [
+    {title:"CapEx, ESG & Obsolescence",       conf:0, tent:0, target:4, wl:0, type:"Sponsor", resp:"Kaynã O."},
+    {title:"Data & Underwriting",             conf:0, tent:0, target:4, wl:0, type:"Sponsor", resp:"Kaynã O."},
+    {title:"Demographics",                    conf:0, tent:0, target:4, wl:0, type:"Sponsor", resp:"Kaynã O."},
+    {title:"Venture Capital & Proptech",      conf:0, tent:0, target:4, wl:2, type:"Sponsor", resp:"Kaynã O."},
+    {title:"Smart Operations at Scale",       conf:0, tent:0, target:4, wl:0, type:"Sponsor", resp:"Kaynã O."},
+  ],
+  Openings: [
+    {title:"Opening Day 1 — LPs",  conf:2, tent:0, target:4, wl:9, type:"Retention", resp:"Ludwig M."},
+    {title:"Opening Day 2 — Investment", conf:0, tent:0, target:4, wl:5, type:"Retention", resp:"Ludwig M."},
+    {title:"Closing (AI/Trends)",  conf:0, tent:0, target:1, wl:1, type:"Retention", resp:"Ludwig M."},
+  ],
+};
+
+const TYPE_CSS = {
+  Retention:'pt-ret', Expansion:'pt-exp', Sponsor:'pt-spo', Guest:'pt-gue'
+};
+
+function mdRenderTable(stream) {
+  const sessions = MD_SESSIONS[stream] || [];
+  let rows = sessions.map(s => {
+    const total = s.conf + s.tent;
+    const pct = s.target ? Math.round(total / s.target * 100) : null;
+    const barClass = total === 0 ? 'prog-0' : pct >= 100 ? 'prog-high' : pct >= 50 ? 'prog-mid' : 'prog-low';
+    const barW = s.target ? Math.min(100, pct) : 0;
+    const tgtStr = s.target !== null ? s.target : '—';
+    const progStr = s.target !== null ? `${total}/${s.target}` : `${total}`;
+    const typeClass = TYPE_CSS[s.type] || 'pt-ret';
+    const wlBadge = s.wl > 0 
+      ? `<span style="font-size:10px;color:#2a5a9a;background:#eef3fb;padding:1px 6px;border-radius:8px;margin-left:4px">${s.wl} WL</span>` 
+      : '';
+    return `<tr class="md-sess-row" onclick="mdGoToSession('${stream}', '${s.title.replace(/'/g,"\\'")}')">
+      <td>
+        <div class="sess-title">${s.title}${wlBadge}</div>
+      </td>
+      <td><span class="ptype ${typeClass}">${s.type}</span></td>
+      <td>${tgtStr}</td>
+      <td>
+        <div style="display:flex;align-items:center">
+          <div class="mini-prog"><div class="mini-prog-fill ${barClass}" style="width:${barW}%"></div></div>
+          <span class="prog-num">${progStr}</span>
+          ${s.conf > 0 ? `<span style="font-size:10px;color:#3a7a3a;background:#f0f5ea;border-radius:8px;padding:1px 5px;margin-left:3px">${s.conf}c</span>` : ''}
+          ${s.tent > 0 ? `<span style="font-size:10px;color:#7a5a00;background:#fdf5e8;border-radius:8px;padding:1px 5px;margin-left:2px">${s.tent}t</span>` : ''}
+        </div>
+      </td>
+      <td style="font-size:11px;color:#888">${s.resp}</td>
+      <td style="font-size:11px;color:#aaa">${s.wl}</td>
+    </tr>`;
+  }).join('');
+
+  return `<table class="session-table">
+    <thead>
+      <tr>
+        <th style="width:36%">Session</th>
+        <th style="width:11%">Type</th>
+        <th style="width:8%">Target</th>
+        <th style="width:25%">Progress</th>
+        <th style="width:11%">Producer</th>
+        <th style="width:9%">WL</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function mdGoToSession(stream, sessionTitle) {
+  // Switch to ICP tab and apply stream filter
+  const icpTab = document.querySelector('.tab[onclick*="\'icp\'"]');
+  if (icpTab) {
+    switchTab('icp', icpTab);
+    // Set stream filter
+    const sel = document.getElementById('f-stream');
+    if (sel) {
+      sel.value = stream;
+      render();
+    }
+  }
+}
+
+// Init stream tabs in Main Data
+document.addEventListener('DOMContentLoaded', function() {
+  const tabsEl = document.getElementById('md-stream-tabs');
+  if (!tabsEl) return;
+  
+  // Render default
+  document.getElementById('md-session-table-wrap').innerHTML = mdRenderTable('Investment');
+
+  tabsEl.addEventListener('click', function(e) {
+    const tab = e.target.closest('.stab');
+    if (!tab) return;
+    tabsEl.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const stream = tab.dataset.stream;
+    document.getElementById('md-session-table-wrap').innerHTML = mdRenderTable(stream);
+  });
+});
+
+
+// WISHLIST CHART DATA — injected by updater
+/*%%WL_CHART_DATA_START%%*/const WL_CHART_DATA = [
+  {session:"Data Centers - Still Underwritten or Already Overcrowded?",Draft:9,Invited:0,Pre_Confirmed:1,Registered:3,Pending:0},
+  {session:"Conversions & Repositioning: When Does CRE Still Make Sense?",Draft:7,Invited:1,Pre_Confirmed:3,Registered:2,Pending:0},
+  {session:"PBSA - Still Wins, But Where Is the Next Upside?",Draft:3,Invited:2,Pre_Confirmed:3,Registered:3,Pending:1},
+  {session:"Office 2.0",Draft:11,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Mid-market Financing Deals",Draft:0,Invited:3,Pre_Confirmed:3,Registered:5,Pending:0},
+  {session:"Capital Stack: Whole Loans, Preferred Equity, Mezz - Capital Stack Engineering",Draft:4,Invited:1,Pre_Confirmed:2,Registered:3,Pending:0},
+  {session:"Retail Polarisation: Prime Recovery vs. Secondary Decline",Draft:8,Invited:1,Pre_Confirmed:1,Registered:0,Pending:0},
+  {session:"Private Credit x Banks Collaboration -  Where Each Wins",Draft:4,Invited:0,Pre_Confirmed:4,Registered:2,Pending:0},
+  {session:"Opening - LPs Capital: The LP Mandate 2027 ? Allocation Shifts, Portfolio Priorities & Where Institutional Capital Goes Next",Draft:6,Invited:1,Pre_Confirmed:2,Registered:0,Pending:0},
+  {session:"Logistics Pan-European Strategies",Draft:7,Invited:0,Pre_Confirmed:2,Registered:0,Pending:0},
+  {session:"Refinancing the Wall - What Breaks, What Extends, What Reprices",Draft:5,Invited:1,Pre_Confirmed:2,Registered:1,Pending:0},
+  {session:"Value-Add - What Actually Trades in 2026?",Draft:5,Invited:1,Pre_Confirmed:3,Registered:0,Pending:0},
+  {session:"Residential BTS Development & Regulation Across Europe - Where Returns Survive",Draft:6,Invited:1,Pre_Confirmed:0,Registered:2,Pending:0},
+  {session:"The European Debt Map - Who?s Lending, On What, and Why",Draft:2,Invited:2,Pre_Confirmed:4,Registered:0,Pending:0},
+  {session:"GCC - Global Capital Magnet?",Draft:4,Invited:2,Pre_Confirmed:1,Registered:1,Pending:0},
+  {session:"Dry Powder",Draft:8,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Exit Optionality - Underwriting Liquidity Before You Buy",Draft:7,Invited:0,Pre_Confirmed:1,Registered:0,Pending:0},
+  {session:"Logistics Local Markets Deals",Draft:1,Invited:2,Pre_Confirmed:2,Registered:2,Pending:0},
+  {session:"Senior Living - The Next Core?",Draft:2,Invited:2,Pre_Confirmed:2,Registered:1,Pending:0},
+  {session:"Buyers X Sellers Reality Check - Pricing, Earn-Outs & Creative Structuring",Draft:6,Invited:0,Pre_Confirmed:0,Registered:1,Pending:0},
+  {session:"Flex, Serviced Apartments & Co-Living - Where the Models Work and Where It Breaks?",Draft:2,Invited:0,Pre_Confirmed:5,Registered:0,Pending:0},
+  {session:"Secondaries Market - A New Trading Window?",Draft:4,Invited:0,Pre_Confirmed:1,Registered:1,Pending:0},
+  {session:"Living as a Defensive Play - Myth or Reality?",Draft:2,Invited:0,Pre_Confirmed:3,Registered:1,Pending:0},
+  {session:"Core - Where Are Real Deals Clearing in Europe Right Now?",Draft:4,Invited:0,Pre_Confirmed:1,Registered:1,Pending:0},
+  {session:"Platform Plays vs. Single Assets Deals: Scaling Hospitality in Europe",Draft:3,Invited:1,Pre_Confirmed:1,Registered:1,Pending:0},
+  {session:"Hospitality Lease, Management, Franchise, Hybrid Models: Where Risk Really Sits - Hotel Management Companies",Draft:2,Invited:1,Pre_Confirmed:2,Registered:1,Pending:0},
+  {session:"Club Deals, JVs & Co-Invests - Are Bilateral Deals the New Normal?",Draft:2,Invited:0,Pre_Confirmed:2,Registered:1,Pending:0},
+  {session:"Build-to-Rent - Can the Model Still Deliver Across Different Regions?",Draft:0,Invited:1,Pre_Confirmed:1,Registered:3,Pending:0},
+  {session:"Hospitality Risk-Adjusted Returns: Why Capital Still Accepts Deals?",Draft:4,Invited:0,Pre_Confirmed:1,Registered:0,Pending:0},
+  {session:"Portfolio Trades vs. Single Assets - Liquidity Pros & Cons",Draft:3,Invited:0,Pre_Confirmed:0,Registered:1,Pending:0},
+  {session:"Hospitality?s Fundamentals: Structural Shifts or Late-Cycle Trades?",Draft:1,Invited:1,Pre_Confirmed:2,Registered:0,Pending:0},
+  {session:"Opening - International Capital & Global Macro Forces Shaping Real Estate Strategies",Draft:2,Invited:2,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Financement France",Draft:4,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"USA",Draft:2,Invited:1,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Venture Capital, Proptech & Real Estate Innovation: What Creates Real Value Now?",Draft:0,Invited:0,Pre_Confirmed:2,Registered:0,Pending:0},
+  {session:"Nordics Capital Re-entry: Where Is Money Moving First?",Draft:0,Invited:0,Pre_Confirmed:1,Registered:1,Pending:0},
+  {session:"Branded Residences ? Real Value?",Draft:0,Invited:1,Pre_Confirmed:1,Registered:0,Pending:0},
+  {session:"Ready to Deploy or Still Waiting for Conviction?,Draft,Ali Haroon,Partner and the Head of Special Situations and Real Estate in Europe,Bain Capital Credit - UK,Mariana Pereira,Mariana Pereira,22/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Pre-Confirmed,Steven Skinner,CEO,HB Reavis - UK,Mariana Pereira,Mariana Pereira,23/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Ready to Deploy or Still Waiting for Conviction?,Draft,Tim Breitenstein,Managing Director - Co Head Investments Europe,Morgan Stanley,Mariana Pereira,Mariana Pereira,22/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Ready to Deploy or Still Waiting for Conviction?,Invited,John Keegan,Senior Managing Director",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Ready to Deploy or Still Waiting for Conviction?,Invited,Lisa Feifer,Global Head of Capital Formation,Cain - UK,Mariana Bonucci,Mariana Bonucci,22/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Ready to Deploy or Still Waiting for Conviction?,Draft,Clark Coffee,CIO,AllianceBernstein,Mariana Bonucci,Mariana Bonucci,22/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"AI, Real Estate & Future Trends",Draft:0,Invited:1,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Pre-Confirmed,Arkadiusz Rudzki,Executive Vice President,Skanska - Poland,Juliana Pires,Juliana Pires,23/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Pre-Confirmed,Guenther Artner,Head of Group Commercial Real Estate,Erste Group Bank AG,Juliana Pires,Juliana Pires,23/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Ready to Deploy or Still Waiting for Conviction?,Pre-Confirmed,Emma Jack,Co-Head",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Draft,Maciej Dyjas,Co-Owner & Managing Partner,Griffin Capital Partners,Juliana Pires,Juliana Pires,23/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Draft,Karol Pilniewicz,CEO & CIO",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Ready to Deploy or Still Waiting for Conviction?,Draft,Paul Bashir,CEO Europe,Harrison Street Real Estate Capital - UK,Juliana Pires,Juliana Pires,22/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Registered,Miguel  Hern�ndez,Director of Strategy and Corporate Development,CREA MADRID NUEVO NORTE,Julia Bearzotti,Julia Bearzotti,23/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Ready to Deploy or Still Waiting for Conviction?,Registered,Cristina Garc�a-Peri,Senior Partner Head of Strategy and Business Development,Grupo Azora,Julia Bearzotti,Julia Bearzotti,16/05/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Pre-Confirmed,Edmund Eggins,Managing Director,Ardian - Spain,Julia Bearzotti,Julia Bearzotti,24/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Registered,Philipp Braunfels,Managing Director,Jamestown - Europe,Ana Godoy,Ana Godoy,24/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Living France",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Investissement et Risque France",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Draft,Ajay Phull,Head of Investment",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Immobilier Tertiaire et Transformation",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Invited,Paul Raingold,President,GCI - G�n�rale Continentale Investissements,Adriana Lucchesi,Adriana Lucchesi,24/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0},
+  {session:"Which Markets Still Underwrite ? Which Don?t,Draft,Alexander Kraemer,Managing Director,Deutsche Bank AG,**INACTIVE** Savio Swaby,Mariana Pereira,23/04/2026,Wish List",Draft:1,Invited:0,Pre_Confirmed:0,Registered:0,Pending:0}
+]/*%%WL_CHART_DATA_END%%*/
+
+const WL_STATUS_COLORS = {
+  'Pending Allocation': '#9B59B6',
+  'Draft':              '#3498DB',
+  'Invited':            '#1ABC9C',
+  'Pre-Confirmed':      '#E91E8C',
+  'Registered':         '#E74C3C',
+};
+const WL_STATUS_KEYS = ['Pending Allocation','Draft','Invited','Pre-Confirmed','Registered'];
+// Map keys in data (no spaces/hyphens) to display names
+const WL_KEY_MAP = {
+  'Pending': 'Pending Allocation',
+  'Draft': 'Draft',
+  'Invited': 'Invited',
+  'Pre_Confirmed': 'Pre-Confirmed',
+  'Registered': 'Registered',
+};
+
+let wlChartInst = null;
+function renderWLChart(data) {
+  if (wlChartInst) { wlChartInst.destroy(); wlChartInst = null; }
+  const chartData = data || WL_CHART_DATA;
+  // Sort by total desc
+  const sorted = [...chartData].sort((a,b) => {
+    const ta = Object.values(a).filter(v=>typeof v==='number').reduce((s,v)=>s+v,0);
+    const tb = Object.values(b).filter(v=>typeof v==='number').reduce((s,v)=>s+v,0);
+    return tb - ta;
+  });
+  const labels = sorted.map(d => d.session.length > 60 ? d.session.slice(0,58)+'…' : d.session);
+  const datasets = Object.entries(WL_KEY_MAP).map(([key, label]) => ({
+    label,
+    data: sorted.map(d => d[key] || 0),
+    backgroundColor: WL_STATUS_COLORS[label],
+    borderRadius: 3,
+    stack: 's',
+    barThickness: 14,
+  }));
+
+  // Render legend
+  document.getElementById('wl-legend').innerHTML = Object.entries(WL_STATUS_COLORS)
+    .map(([label, color]) => `<div class="wl-leg-item"><div class="wl-leg-dot" style="background:${color}"></div>${label}</div>`)
+    .join('');
+
+  wlChartInst = new Chart(document.getElementById('wlChart'), {
+    type: 'bar',
+    data: { labels, datasets },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: ctx => sorted[ctx[0].dataIndex].session,
+            label: ctx => `${ctx.dataset.label}: ${ctx.raw}`,
+          }
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          min: 0,
+          ticks: { stepSize: 1, font: { size: 11 }, color: '#9b9b97' },
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          border: { display: false },
+          title: { display: true, text: 'Record Count', font: { size: 11 }, color: '#9b9b97' }
+        },
+        y: {
+          stacked: true,
+          ticks: { font: { size: 11 }, color: '#4a4a47' },
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    }
+  });
+}
 
 // INIT
 const streamsArr = [...new Set(SESSIONS.map(s => s.stream))];
